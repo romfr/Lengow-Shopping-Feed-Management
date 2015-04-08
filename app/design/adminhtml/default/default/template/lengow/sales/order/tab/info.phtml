@@ -1,0 +1,42 @@
+<?php
+/**
+ * @var $this Profileolabs_Lengow_Block_Export_Adminhtml_Product
+ * @see Profileolabs_Lengow_Block_Export_Adminhtml_Product
+ */
+?>
+<?php
+$fields = $this->getFields();
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account">Lengow information</h4>
+    </div>
+</div>
+<div class="fieldset">
+    <?php
+    if($this->isLengowOrder()) {
+    ?>
+    <table cellspacing="0" class="form-list">
+        <tbody>
+            <?php
+            foreach($fields as $field) {
+                ?>
+            <tr>
+                <td class="label">
+                    <label><?php echo $field['label']; ?></label>
+                </td>
+                <td class="value">
+                    <label><?php echo $field['value']; ?></label>
+                </td>
+            </tr>
+                <?php
+            }
+            ?>
+        </tbody>
+    </table>
+    <?php
+    } else {
+        echo '<p>'.$this->__('This order doesn\'t come from Lengow').'</p>';
+    }
+    ?>
+</div>

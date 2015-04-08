@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>lengow/js/charts.min.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>lengow/css/admin.css</name>
+            </action>
+        </reference>
+    </default>
+    
+    <adminhtml_lengow_order_index>
+        <reference name="content">
+            <block type="sync/adminhtml_order" name="manageorders.order.grid.container"></block>
+        </reference>
+    </adminhtml_lengow_order_index>
+    <adminhtml_lengow_log_index>
+        <reference name="content">
+            <block type="sync/adminhtml_log" name="manageorders.log.grid.container"></block>
+        </reference>
+    </adminhtml_lengow_log_index>
+    
+    <adminhtml_lengow_export_index>
+        <reference name="head">
+            <action method="setTitle" translate="title">
+                <title>Lengow Manage Products</title>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="export/adminhtml_product" name="product.grid" template="lengow/export/product.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm">
+                        <params>0</params>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_lengow_export_index>
+    
+    <adminhtml_lengow_feed_index>
+        <reference name="head">
+            <action method="setTitle" translate="title">
+                <title>Lengow Manage Feed</title>
+            </action>
+            <action method="addJs"><script>prototype/tooltip.js</script></action>
+            <action method="addJs"><script>scriptaculous/scriptaculous.js</script></action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="feed/adminhtml_feed" name="feed.grid" template="lengow/feed/grid.phtml">
+                <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                    <action method="setUseConfirm">
+                        <params>0</params>
+                    </action>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_lengow_feed_index>
+    
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab">
+                <name>TAB_NAME</name>
+                <block>sync/adminhtml_order_tab</block>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+</layout>

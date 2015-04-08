@@ -1,0 +1,86 @@
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $.noConflict();
+    ;jQuery(document).ready(function($) {
+        function lengowLoadStats(key) {
+            var ctx = $("#lengow-stats").get(0).getContext("2d");
+            var data = {
+                labels: data_stats[key].evolution_libelle,
+                datasets: [
+                    {
+                        fillColor: "rgba(151,187,205,0.5)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        data: data_stats[key].evolution_values
+                    }
+                ]
+            };
+            new Chart(ctx).Line(data);
+        }
+        // admin dashboard
+        $('#table-feeds').hide();
+        $('#lengow-info').hide();
+        var lengowAPI = 'https://solution.lengow.com/routine/PrestaShop/dashboard_plugin_v2.php?token=<?php echo $this->getData('api_key'); ?>&idClient=<?php echo $this->getData('id_client'); ?>&idGroup=<?php echo $this->getData('id_group'); ?>&callback=?',
+                table_feeds = '',
+                select = '',
+                data_stats = {};
+        $.getJSON(lengowAPI, function(json) {
+            if (json.return == 'ok') {
+                data_stats = json.stats;
+                $('#lengow-load').hide();
+                $.each(json.feeds, function(key, val){
+                    table_feeds += '<tr>'
+                            + '<td>' + json.feeds[key].id + '</td>'
+                            + '<td>' + json.feeds[key].type + '</td>'
+                            + '<td>' + json.feeds[key].diffuseur + '</td>'
+                            + '<td>' + json.feeds[key].nom + '</td>'
+                            + '<td>' + json.feeds[key].nbProduit + '</td>'
+                            + '<td>' + json.feeds[key].nbProduitActif + '</td>'
+                            + '</th>';
+                });
+                select = '<select name="lengow-change" id="lengow-change">';
+                $.each(json.stats, function(key, val){
+                    select += '<option value="' + key + '">' + json.stats[key].name + '</option>';
+                });
+                select += '</select>';
+                $('#table-feeds tbody').html(table_feeds);
+                $('#table-feeds').show();
+                $('#lengow-info').show();
+                $('#lengow-change-select').html(select);
+                $('#lengow-root').html('<canvas id="lengow-stats" width="587" height="400"></canvas>');
+                $('#lengow-change').change(function() {
+                    var selected = $('#lengow-change').val();
+                    lengowLoadStats(selected);
+                });
+                lengowLoadStats(0);
+            }
+        });
+    });
+</script>
+<div style="margin: 20px;">
+    
+    <div id="lengow-load"><?php echo Mage::helper('dashboard')->__('Dashboard Lengow'); ?></div>
+            
+    <div class="switcher a-right" style="padding:5px 10px;" id="lengow-change-select"></div>
+    
+    <div id="lengow-info">
+        <div id="lengow-root"></div>
+    </div>
+    
+    <br />
+    <table id="table-feeds">
+        <thead>
+            <tr>
+                <th><span><?php echo Mage::helper('dashboard')->__('ID'); ?></span></th>
+                <th><span><?php echo Mage::helper('dashboard')->__('Type'); ?></span></th>
+                <th><span><?php echo Mage::helper('dashboard')->__('Supplier'); ?></span></th>
+                <th><span><?php echo Mage::helper('dashboard')->__('Name'); ?></span></th>
+                <th><span><?php echo Mage::helper('dashboard')->__('Products'); ?></span></th>
+                <th><span><?php echo Mage::helper('dashboard')->__('Enable\'s products'); ?></span></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>

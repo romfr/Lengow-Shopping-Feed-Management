@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <lengow translate="label" module="tracker">
+            <label>Lengow</label>
+            <sort_order>210</sort_order>
+        </lengow>
+    </tabs>
+    <sections>
+        <tracker translate="label" module="tracker">
+            <label>Customer Account</label>
+            <tab>lengow</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>89</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <check translate="label, comment">
+                    <label/>
+                    <frontend_type>note</frontend_type>
+                    <frontend_model>Lengow_Tracker_Block_Adminhtml_System_Config_Check</frontend_model>
+                    <sort_order>-1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                </check>
+                <general translate="label, comment">
+                    <label>Lengow API and TagCapsule</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>1</sort_order>
+                    <fields>
+                        <login>
+                            <label>Customer ID</label>
+                            <comment>Your Customer ID of Lengow</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login>
+                        <group>
+                            <label>Group ID</label>
+                            <comment>Your Group ID of Lengow</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </group>
+                        <api_key>
+                            <label>Token API</label>             
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_key>
+                    </fields>
+                </general>
+                <tag translate="label, comment">
+                    <label>TagCapsule</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>2</sort_order>
+                    <fields>
+                        <type>
+                            <label>Tracker Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Lengow_Tracker_Model_System_Config_Source_Tracker</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </type>
+                        <identifiant>
+                            <label>Tracker Product's identifiant</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Lengow_Tracker_Model_System_Config_Source_Identifiant</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </identifiant>
+                    </fields>
+                </tag>
+                <hidden translate="label, comment">
+                    <label>Hidden fields</label>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>1</sort_order>
+                    <fields>
+                        <last_synchro>
+                            <label>Date of plugins.xml synchro</label>                        
+                            <sort_order>1</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Last date of plugins.xml synchronisation</comment>
+                        </last_synchro>
+                    </fields>
+                </hidden>
+            </groups>
+        </tracker>
+    </sections>
+</config>

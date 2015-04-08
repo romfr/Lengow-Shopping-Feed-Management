@@ -1,0 +1,31 @@
+<!-- Tag_Lengow -->
+<?php
+if ($this->getData('controller') == 'onepage' && $this->getData('current_action') == 'success') {
+    ?>
+    <script type="text/javascript">
+        page = 'payment';  // #TYPE DE PAGE#
+        order_amt = '<?php echo $this->getData('order_total'); ?>'; // #MONTANT COMMANDE#
+        order_id = '<?php echo $this->getData('id_order'); ?>'; // #ID COMMANDE#
+        product_ids = '<?php echo $this->getData('ids_products'); ?>'; // #ID PRODUCT#
+        basket_products = '<?php echo $this->getData('list_products'); ?>'; // #LISTING PRODUCTS IN BASKET#
+        ssl = '<?php echo $this->getData('use_ssl'); ?>';
+        id_categorie = '<?php echo $this->getData('id_category'); ?>'; // #ID CATEGORIE EN COURS#
+    </script>
+    <script type="text/javascript" src="https://tracking.lengow.com/tagcapsule.js?lengow_id=<?php echo $this->getData('id_client'); ?>&idGroup=<?php echo $this->getData('id_group'); ?>"></script>
+    <?php
+}
+?>
+<div id="lengow_tracker">
+    <script type="text/javascript">
+        var page = '<?php echo $this->getData('type_page'); ?>';  // #TYPE DE PAGE#
+        var order_amt = '<?php echo $this->getData('order_total'); ?>'; // #MONTANT COMMANDE#
+        var order_id = '<?php echo $this->getData('id_order'); ?>'; // #ID COMMANDE#
+        var product_ids = '<?php echo $this->getData('ids_products'); ?>'; // #ID PRODUCT#
+        var basket_products = '<?php echo $this->getData('list_products'); ?>'; // #LISTING PRODUCTS IN BASKET#
+        var ssl = '<?php echo $this->getData('use_ssl'); ?>';
+        var id_categorie = '<?php echo $this->getData('id_category'); ?>'; // #ID CATEGORIE EN COURS#
+    </script>
+</div>
+<script id="url_script" type="text/javascript" src="https://tracking.lengow.com/tagcapsule.js?lengow_id=<?php echo $this->getData('id_client'); ?>&idGroup=<?php echo $this->getData('id_group'); ?>"></script>
+
+<!-- /Tag_Lengow -->

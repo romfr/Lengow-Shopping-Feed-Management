@@ -1,0 +1,61 @@
+<?php
+/**
+ * @var $this Lengow_Feed_Block_Adminhtml_Feed
+ * @see Lengow_Feed
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;">
+                <h3 class="icon-head head-products">
+                    <?php echo Mage::helper('feed')->__('Feeds management') ?>
+                </h3>
+            </td>
+            <td class="a-right">
+                <?php echo $this->getButtonsHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php if (!$this->isSingleStoreMode()): ?>
+    <?php echo $this->getChildHtml('store_switcher'); ?>
+<?php endif; ?>
+<?php 
+$_store_id = $this->getRequest()->getParam('store');
+$args = array();
+if(!empty($_store_id))
+    $args['store'] = $_store_id;
+?>
+<div>
+    <form method="post" id="form_grid_feed" action="<?php echo $this->getUrl('*/*/migrate', $args); ?>">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <?php echo $this->getGridHtml() ?>
+    </form>
+</div>
+<style>
+    .tooltip {
+        color: #000;
+        background: #fff;
+        border: 2px solid #ea7601;
+        padding: 10px;
+        overflow: visible;
+    }
+    .tooltip .toolbar {
+        background: #0F6788;
+        font: italic 17px Georgia, serif;
+    }
+    .tooltip .title { padding: 5px; }
+    .tooltip .content { 
+        background: dodgerblue;
+        font: 11px Arial, Helvetica, sans-serif;
+        padding: 5px;
+    }
+</style>
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        $$('.popup-link').each(function(element) {
+            new Tooltip(element, element.readAttribute('data-link'));
+    })
+    });
+</script>

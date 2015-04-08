@@ -1,0 +1,33 @@
+<legend><?php echo __('Check your configuration'); ?></legend>
+<table cellspacing="0" class="form-list">
+	<colgroup class="label"></colgroup>
+	<colgroup class="value"></colgroup>
+	<colgroup class="scope-label"></colgroup>
+	<colgroup class=""></colgroup>
+	<tbody>
+		<tr id="row_update_module">
+			<td class="label">
+				<label for="update_module"><?php echo Mage::helper('tracker')->__('Module\'s version'); ?></label>
+			</td>
+			<td class="value">
+				<?php echo $this->getVersion(); ?>
+				<?php if($this->isLastVersion()): ?>
+					<span class="lengow-check lengow-updated"><?php echo Mage::helper('tracker')->__('Your module is already updated'); ?></span>
+				<?php else: ?>
+					<span class="lengow-check lengow-must-be-updated"><?php echo Mage::helper('tracker')->__('There is a new version %s of Lengow Module, please update it on your Magento Connect Manager !', $this->getLastVersion()); ?></span>
+				<?php endif; ?>
+			</td>
+		</tr>
+		<tr id="row_ip_service">
+			<td class="label">
+				<label for="ip_service"><?php echo Mage::helper('tracker')->__('IP of your server'); ?></label>
+			</td>
+			<td class="value">
+				<?php echo $this->getRealIP(); ?>
+				<p class="note">
+					<?php echo Mage::helper('tracker')->__('Make sure your website IP (%s) address is filled in your Lengow Dashboard.', $this->getRealIP()); ?> <a href="https://solution.lengow.com/api/" target="_blank"><?php echo Mage::helper('tracker')->__('Click here to update it'); ?></a>
+				</p>
+			</td>
+		</tr>
+	</tbody>
+</table>

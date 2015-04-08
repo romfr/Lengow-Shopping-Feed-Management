@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="tracker/tracker" name="lengow_tracker" template="lengow/tracker/tag.phtml" />
+        </reference>
+    </default>
+
+    <checkout_onepage_index translate="label">
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>lengow/js/tracker.js</name>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+    
+</layout>
