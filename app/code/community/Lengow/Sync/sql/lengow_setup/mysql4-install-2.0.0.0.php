@@ -172,7 +172,7 @@ if(!$attribute) {
         'unique'            => 0,
         'used_in_product_listing' => 1
     ));
-} else {
+} elseif (is_object($attribute)) {
     // Update attribute
     $attribute->setIsGlobal(0)->save();
 }
