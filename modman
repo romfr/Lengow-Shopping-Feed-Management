@@ -1,0 +1,9 @@
+app/code/community/Lengow/* app/code/community/Lengow/
+app/design/adminhtml/default/default/layout/lengow.xml app/design/adminhtml/default/default/layout/lengow.xml
+app/design/adminhtml/default/default/template/lengow app/design/adminhtml/default/default/template/lengow
+app/design/frontend/base/default/layout/lengow.xml app/design/frontend/base/default/layout/lengow.xml
+app/design/frontend/base/default/template/lengow app/design/frontend/base/default/template/lengow
+app/etc/modules/Lengow_Connector.xml app/etc/modules/Lengow_Connector.xml
+app/locale/fr_FR/Lengow_Connector.csv app/locale/fr_FR/Lengow_Connector.csv
+skin/adminhtml/default/default/lengow skin/adminhtml/default/default/lengow
+skin/frontend/base/default/lengow/js/tracker.js skin/frontend/base/default/lengow/js/tracker.js

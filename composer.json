@@ -1,0 +1,9 @@
+{
+   "name": "lengow/lengow",
+   "type": "magento-module",
+   "description": "A github mirror of http://www.magentocommerce.com/magento-connect/lengow-shopping-feed-management.html",
+   "homepage": "https://github.com/romfr/Lengow-Shopping-Feed-Management",
+   "require": {
+      "magento-hackathon/magento-composer-installer": "*"
+   }
+}
