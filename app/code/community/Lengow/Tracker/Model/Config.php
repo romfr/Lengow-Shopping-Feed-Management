@@ -19,4 +19,15 @@ class Lengow_Tracker_Model_Config extends Varien_Object {
         return Mage::getStoreConfig('tracker/' . $key, $this->_id_store);
     }
 
+    /**
+     * Sets a tracker config
+     *
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function set($key, $value) {
+        return Mage::getModel('core/config')->saveConfig('tracker/' . $key, $value);
+    }
 }

@@ -35,20 +35,15 @@ class Lengow_Tracker_Helper_Check extends Mage_Core_Helper_Abstract {
 
 
     /**
-     * Check and update xml of plugins version
+     * Check and update plugin version in db config
      *
      * @return boolean
      */
     public static function updatePluginsVersion() {
-        $mp_update = Mage::getModel('tracker/config')->get('hidden/last_synchro');
+        $configModel = Mage::getModel('tracker/config');
+        $mp_update = $configModel->get('hidden/last_synchro');
         if (!$mp_update || !$mp_update == '0000-00-00' ||$mp_update != date('Y-m-d')) {
-            $sep = DS;
-            if ($xml = fopen(self::LENGOW_PLUGINS_VERSION, 'r')) {
-                $handle = fopen(Mage::getModuleDir('etc', 'Lengow_Tracker') . DS . self::URI_TAG_CAPSULE . '', 'w');
-                stream_copy_to_stream($xml, $handle);
-                fclose($handle);
-                Mage::getModel('core/config')->saveConfig('tracker/hidden/last_synchro', date('Y-m-d'));
-            }
+            $configModel->set('hidden/last_synchro', date('Y-m-d'));
         }
     }
 
