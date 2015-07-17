@@ -9,7 +9,17 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Lengow_Sync_Adminhtml_Lengow_LogController extends Mage_Adminhtml_Controller_Action {
-    
+
+    /**
+     * Checks permissions
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('lengow/log');
+    }
+
     protected function _initAction() {
         $this->loadLayout()
              ->_setActiveMenu('lengow/log')

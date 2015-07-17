@@ -10,6 +10,16 @@
  */
 class Lengow_Feed_Adminhtml_Lengow_FeedController extends Mage_Adminhtml_Controller_Action {
 
+    /**
+     * Checks permissions
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('lengow/feed');
+    }
+
     public function indexAction() {
         $this->loadLayout();
         $this->renderLayout();

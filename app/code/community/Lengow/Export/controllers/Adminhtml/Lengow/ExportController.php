@@ -10,6 +10,16 @@
  */
 class Lengow_Export_Adminhtml_Lengow_ExportController extends Mage_Adminhtml_Controller_Action {
 
+    /**
+     * Checks permissions
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('lengow/export');
+    }
+
 	public function indexAction() {
         $this->loadLayout();
         $this->renderLayout();

@@ -10,6 +10,16 @@
  */
 class Lengow_Sync_Adminhtml_Lengow_OrderController extends Mage_Adminhtml_Controller_Action {
 
+    /**
+     * Checks permissions
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('lengow/sync');
+    }
+
     protected function _initAction() {
         $this->loadLayout()
              ->_setActiveMenu('lengow/order')
