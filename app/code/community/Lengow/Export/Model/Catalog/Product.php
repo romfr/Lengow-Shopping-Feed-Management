@@ -359,7 +359,7 @@ class Lengow_Export_Model_Catalog_Product extends Mage_Catalog_Model_Product {
         }
         $c = 1;
         foreach($images as $i) {
-            $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $i['file'];
+            $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product/' . $i['file'];
             $data['image-url-' . $c++] = $url;
             if($i == $max_image + 1)
                 break;

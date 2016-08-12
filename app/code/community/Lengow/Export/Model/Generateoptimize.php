@@ -308,7 +308,7 @@ class Lengow_Export_Model_Generateoptimize extends Varien_Object {
 
         $this->_config['include_tax'] = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_PRICE_INCLUDES_TAX, $this->_id_store);
         $this->_config['directory_path'] = Mage::getBaseDir('media') . DS . 'lengow' . DS . $store_code . DS;
-        $this->_config['image_base_url'] = substr(Mage::app()->getStore($this->_id_store)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA, false), 0, -1).'/catalog/product';
+        $this->_config['image_base_url'] = substr(Mage::app()->getStore($this->_id_store)->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA, false), 0, -1).'/catalog/product/';
         $this->_config['force_type'] = array_key_exists('forced_type',$params) ? $params['forced_type'] : false;
         $this->_config['product_status'] = array_key_exists('status',$params) ? $params['status'] : null;
         $this->_config['product_ids'] = array_key_exists('product_ids',$params) ? $params['product_ids'] : false;

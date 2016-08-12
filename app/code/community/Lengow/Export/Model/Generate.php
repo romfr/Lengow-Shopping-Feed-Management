@@ -319,7 +319,8 @@ class Lengow_Export_Model_Generate extends Varien_Object {
             // Product variation
             $array_data['product_type'] = $product_type;
             $array_data['product_variation'] = $variation_name;
-            $array_data['image_default'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product' . $product->getImage();
+            $array_data['image_default'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product/' . $product->getImage();
+            $array_data['thumbnail'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/product/' . $product->getThumbnail();
             $array_data['child_name'] = $this->_helper->cleanData($product->getName(), $formatData);
             // Selected attributes to export with Frond End value of current shop
             if(!empty($attributes_to_export)) {
@@ -417,10 +418,9 @@ class Lengow_Export_Model_Generate extends Varien_Object {
              $this->storeParents[$parent_id] = $parent;
         }
         if ($this->_clear_parent_cache>300){
-            if(method_exists($this->storeParents[0], 'clearInstance')) {
-                $maxStoreParent = count($this->storeParents);
-                for ($i = 0; $i < $maxStoreParent; $i++) {
-                    $this->storeParents[0]->clearInstance();
+            foreach ($this->storeParents as $parentStore) {
+                if(method_exists($parentStore, 'clearInstance')) {
+                    $parentStore->clearInstance();
                 }
             }
             $this->_clear_parent_cache = 0;
