@@ -25,7 +25,7 @@ class Lengow_Export_Model_Feed_Csv extends Lengow_Export_Model_Feed_Abstract {
      */
     public static $CSV_EOL = "\r\n";
 
-    protected $_content_type = 'text/plain';
+    protected $_content_type = 'text/csv';
 
     public function getContentType() {
         return $this->_content_type;

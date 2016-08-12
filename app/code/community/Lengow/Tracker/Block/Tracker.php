@@ -11,22 +11,22 @@
 class Lengow_Tracker_Block_Tracker extends Mage_Core_Block_Template {
 
     const URI_TAG_CAPSULE = 'https://tracking.lengow.com/tagcapsule.js';
-    const BLOCK_SIMPLE = 'tracker/tag_simple';
-    const BLOCK_CAPSULE = 'tracker/tag_capsule';
-    
+    const BLOCK_SIMPLE = 'lentracker/tag_simple';
+    const BLOCK_CAPSULE = 'lentracker/tag_capsule';
+
     protected $_id_client;
     protected $_id_group;
     protected $_tag;
 
     protected function _construct() {
-        $config_model = Mage::getSingleton('tracker/config');
-        
+        $config_model = Mage::getSingleton('lentracker/config');
+
         $this->_id_client = $config_model->get('general/login');
         $this->_id_group = $config_model->get('general/group');
         $this->_tag = $config_model->get('tag/type');
 
     }
-    
+
     protected function _prepareLayout()
     {
         parent::_prepareLayout();
@@ -34,10 +34,10 @@ class Lengow_Tracker_Block_Tracker extends Mage_Core_Block_Template {
             $this->setChild('tracker', $this->getLayout()->createBlock(self::BLOCK_CAPSULE, 'tag_capsule'));
         elseif($this->_tag == 'simpletag')
             $this->setChild('tracker', $this->getLayout()->createBlock(self::BLOCK_SIMPLE, 'simple_tag'));
-        
+
         return $this;
     }
-    
+
     /**
      * Prepare and return block's html output
      *
@@ -46,10 +46,10 @@ class Lengow_Tracker_Block_Tracker extends Mage_Core_Block_Template {
     protected function _toHtml() {
         return parent::_toHtml();
     }
-    
-    
-    
-    
+
+
+
+
     /**
      * Retrieve Page Type
      *
@@ -78,7 +78,7 @@ class Lengow_Tracker_Block_Tracker extends Mage_Core_Block_Template {
     }
 
     /**
-     * Retrieve if SSL is used for display tag capsule 
+     * Retrieve if SSL is used for display tag capsule
      *
      * @return string
      */

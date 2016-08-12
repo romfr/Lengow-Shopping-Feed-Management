@@ -21,7 +21,7 @@ class Lengow_Dashboard_Block_Adminhtml_Dashboard_Diagrams extends Mage_Adminhtml
         parent::_prepareLayout();
         $this->addTab('lengow', array(
             'label'     => Mage::helper('adminhtml')->__('Lengow'),
-            'content'   => $this->getLayout()->createBlock('dashboard/adminhtml_dashboard_charts')->toHtml(),
+            'content'   => $this->getLayout()->createBlock('lendashboard/adminhtml_dashboard_charts')->toHtml(),
             'active'   => false
         ));
     }

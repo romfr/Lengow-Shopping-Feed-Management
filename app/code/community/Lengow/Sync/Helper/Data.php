@@ -4,8 +4,8 @@
  *
  * @category    Lengow
  * @package     Lengow_Sync
- * @author      Ludovic Drin <ludovic@lengow.com>
- * @copyright   2013 Lengow SAS 
+ * @author      Ludovic Drin <ludovic@lengow.com> & Benjamin Le Nevé <benjamin.le-neve@lengow.com>
+ * @copyright   2015 Lengow SAS
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Lengow_Sync_Helper_Data extends Mage_Core_Helper_Abstract {
@@ -17,11 +17,12 @@ class Lengow_Sync_Helper_Data extends Mage_Core_Helper_Abstract {
      * @param SimpleXMLElement $xml
      * @return array
      */
-    public function xmlToAssoc(SimpleXMLElement $xml) {
+    public function xmlToAssoc(SimpleXMLElement $xml)
+    {
         $array = array();
         foreach ($xml as $key => $value) {
             $array[$key] = trim((string)$value);
-            if (empty($array[$key]) && !empty($value)) 
+            if (empty($array[$key]) && !empty($value))
                 $array[$key] = self::xmlToAssoc($value);
             else
                 $array[$key] = (string)$value;
@@ -36,7 +37,8 @@ class Lengow_Sync_Helper_Data extends Mage_Core_Helper_Abstract {
      * @param bool $isCanonical - whether to ignore attributes
      * @return array|string
      */
-	public function asArray(SimpleXMLElement $xml,$isCanonical = true) {
+	public function asArray(SimpleXMLElement $xml,$isCanonical = true)
+    {
         $result = array();
         if (!$isCanonical) {
             // add attributes
@@ -52,7 +54,7 @@ class Lengow_Sync_Helper_Data extends Mage_Core_Helper_Abstract {
                 if(!$child->hasChildren())
                 	$result[$childName] = $this->asArray($child,$isCanonical);
             	else
-       				$result[$childName][] = $this->asArray($child,$isCanonical); 
+       				$result[$childName][] = $this->asArray($child,$isCanonical);
             }
         } else {
             if (empty($result)) {
@@ -65,20 +67,42 @@ class Lengow_Sync_Helper_Data extends Mage_Core_Helper_Abstract {
         }
         return $result;
     }
-    
-    public function log($message, $id_order = null) {
-    	$log_model = Mage::getModel('sync/log');    	
+
+    /**
+     * Writes log
+     *
+     * @param string $message   log message
+     * @param string $id_order  lengow order id
+     * 
+     * @return Lengow_Sync_Helper_Data
+     */
+    public function log($message, $id_order = null)
+    {
+    	$log_model = Mage::getModel('lensync/log');
     	$log_model->log($message, $id_order);
     	return $this;
     }
-    
+
+    /**
+     * Suppress log files when too old.
+     */
+    public function cleanLog()
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $writeConnection = $resource->getConnection('core_write');
+        $table = $resource->getTableName('lensync/log');
+        $query = "DELETE FROM ".$table." WHERE date < DATE_SUB(NOW(),INTERVAL 20 DAY)";
+        $writeConnection->query($query);
+    }
+
     /**
      * Clean None utf-8 characters
      * @param string $value
      * @return string $value
      */
-    public function cleanNotUtf8($value) {    	
-    	$value = Mage::helper('core/string')->cleanString($value);    	
+    public function cleanNotUtf8($value)
+    {
+    	$value = Mage::helper('core/string')->cleanString($value);
     	//reject overly long 2 byte sequences, as well as characters above U+10000 and replace with blank
 		$value = preg_replace('/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]'.
 		 '|[\x00-\x7F][\x80-\xBF]+'.
@@ -88,16 +112,31 @@ class Lengow_Sync_Helper_Data extends Mage_Core_Helper_Abstract {
 		 '', $value );
 		//reject overly long 3 byte sequences and UTF-16 surrogates and replace with blank
 		$value = preg_replace('/\xE0[\x80-\x9F][\x80-\xBF]'.
-		 '|\xED[\xA0-\xBF][\x80-\xBF]/S','', $value );		
+		 '|\xED[\xA0-\xBF][\x80-\xBF]/S','', $value );
 		/*$value = preg_replace("/([\x80-\xFF])/e",
 				"chr(0xC0|ord('\\1')>>6).chr(0x80|ord('\\1')&0x3F)",
-				$value);*/		
+				$value);*/
 		$value = str_replace(chr(31),"", $value);
 		$value = str_replace(chr(30),"", $value);
 		$value = str_replace(chr(29),"", $value);
-		$value = str_replace(chr(28),"", $value);		
-		//$value = iconv("UTF-8","UTF-8//IGNORE",$value);		
+		$value = str_replace(chr(28),"", $value);
+		//$value = iconv("UTF-8","UTF-8//IGNORE",$value);
 		return $value;
     }
-    
+
+    /**
+     * Updates marketplace.xml
+     */
+    public function updateMarketplaceXML()
+    {
+        $config = Mage::getSingleton('lensync/config');
+        $mp_update = $config->get('hidden/last_synchro');
+        if (!$mp_update || !$mp_update == '0000-00-00' ||$mp_update != date('Y-m-d'))
+            $config->updateMarketPlaceConfiguration();
+    }
+
+    public function cleanMethod($method)
+    {
+        return str_replace(array(' ', '-', '\''), '_', $method);
+    }
 }

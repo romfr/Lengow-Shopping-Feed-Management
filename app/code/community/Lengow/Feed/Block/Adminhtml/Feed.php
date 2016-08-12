@@ -6,7 +6,7 @@
  * @category    Lengow
  * @package     Lengow_Feed
  * @author      Romain Le Polh <romain@lengow.com>
- * @copyright   2013 Lengow SAS 
+ * @copyright   2013 Lengow SAS
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Lengow_Feed_Block_Adminhtml_Feed extends Mage_Adminhtml_Block_Widget_Container {
@@ -25,11 +25,11 @@ class Lengow_Feed_Block_Adminhtml_Feed extends Mage_Adminhtml_Block_Widget_Conta
      */
     protected function _prepareLayout() {
         $this->_addButton('migrate', array(
-            'label'   => Mage::helper('feed')->__('Migrate all selected feeds'),
+            'label'   => Mage::helper('lenfeed')->__('Migrate all selected feeds'),
             'onclick' => 'form_grid_feed.submit()',
             'class'   => 'save'
         ));
-        $this->setChild('grid', $this->getLayout()->createBlock('feed/adminhtml_feed_grid', 'feed.grid'));
+        $this->setChild('grid', $this->getLayout()->createBlock('lenfeed/adminhtml_feed_grid', 'feed.grid'));
         return parent::_prepareLayout();
     }
 

@@ -1,0 +1,222 @@
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-products"><?php echo $this->__('Debug') ?></h3></td>
+            <td class="a-right">
+                <?php echo $this->getButtonsHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<?php
+    $lenfeedConfig = Mage::getSingleton('lenfeed/config');
+    $helperSecurity = Mage::helper('lenexport/security');
+    $helperCheck = Mage::helper('lentracker/check');
+?>
+
+<div>
+    <table>
+        <tr>
+            <td style="width:550px">
+                <h2><?php echo $this->__('Global information'); ?></h2>
+                <div class="grid">
+                    <table class="data">
+                        <tr>
+                            <td><?php echo $this->__('Magento version') ?></td>
+                            <td><?php echo Mage::getVersion(); ?></td>
+                            <?php
+                                if ($helperCheck->checkValidMagentoVersion()) {
+                                    echo '<td class="lengow-debug-green">' . $this->__('Yes') . '</td>';
+                                } else {
+                                    echo '<td class="lengow-debug-red">' . $this->__('No') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Plugin version'); ?></td>
+                            <td><?php echo Mage::helper('lensync/api')->getVersion(); ?></td>
+                            <?php
+                                if ($helperCheck->checkPluginVersion($helperCheck->getVersion())) {
+                                    echo '<td class="lengow-debug-green">' . $this->__('Yes') . '</td>';
+                                } else {
+                                    echo '<td class="lengow-debug-red">' . $this->__('No') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Server IP'); ?></td>
+                            <td colspan="2"><?php echo $_SERVER["SERVER_ADDR"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Ip authorised to export') ?></td>
+                            <?php
+                                $validIP = Mage::getStoreConfig('lenexport/performances/valid_ip');
+                                echo '<td class="a-right"><input type="text" value="' . $validIP . '"></td>';
+                                if ($helperSecurity->checkValidAuthorizedIP($validIP)) {
+                                    echo '<td class="lengow-debug-green">' . $this->__('Yes') . '</td>';
+                                } else {
+                                    echo '<td class="lengow-debug-red">' . $this->__('No') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Customer ID'); ?></td>
+                            <td colspan="2"><?php echo $lenfeedConfig->get('lentracker/general/login'); ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Token API'); ?></td>
+                            <td colspan="2"><?php echo $lenfeedConfig->get('lentracker/general/api_key'); ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Save feed on file') ?></td>
+                            <?php
+                                if (Mage::getStoreConfig('lenexport/performances/usesavefile')) {
+                                    echo '<td colspan="2" class="lengow-debug-green">' . $this->__('Enabled') . '</td>';
+                                } else {
+                                    echo '<td colspan="2" class="lengow-debug-red">' . $this->__('Disabled') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Active cron') ?></td>
+                            <?php
+                                if (Mage::getStoreConfig('lenexport/performances/active_cron')) {
+                                    echo '<td colspan="2" class="lengow-debug-green">' . $this->__('Enabled') . '</td>';
+                                } else {
+                                    echo '<td colspan="2" class="lengow-debug-red">' . $this->__('Disabled') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Auto import') ?></td>
+                            <?php
+                                if (Mage::getStoreConfig('lensync/performances/active_cron')) {
+                                    echo '<td colspan="2" class="lengow-debug-green">' . $this->__('Enabled') . '</td>';
+                                } else {
+                                    echo '<td colspan="2" class="lengow-debug-red">' . $this->__('Disabled') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Debug mode') ?></td>
+                            <?php
+                                if (Mage::getStoreConfig('lensync/performances/debug')) {
+                                    echo '<td colspan="2" class="lengow-debug-green">' . $this->__('Enabled') . '</td>';
+                                } else {
+                                    echo '<td colspan="2" class="lengow-debug-red">' . $this->__('Disabled') . '</td>';
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('The rights of import.flag file') ?></td>
+                            <?php
+                                $file_path = Mage::getBaseDir('media') . DS . 'lengow' . DS . 'import.flag';
+                                echo '<td colspan="2">' . substr(sprintf('%o', fileperms($file_path)), -4) . '</td>';
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('The rights of plugin.xml file') ?></td>
+                            <?php
+                                $file_path = Mage::getModuleDir('etc', 'Lengow_Tracker') . DS . 'plugins.xml';
+                                echo '<td colspan="2">' . substr(sprintf('%o', fileperms($file_path)), -4) . '</td>';
+                            ?>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->__('Write permission from media folder') ?></td>
+                            <?php
+                                $file_path = Mage::getBaseDir('media') . DS . 'lengow' . DS .'test.txt';
+                                $file = fopen($file_path, "w+");
+                                if($file == false) {
+                                    echo '<td class="lengow-debug-red" colspan="2">' . $this->__('No') . '</td>';
+                                } else {
+                                    echo '<td class="lengow-debug-green" colspan="2">' . $this->__('Yes') . '</td>';
+                                    unlink($file_path);
+                                }
+                            ?>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width:600px">
+                <h2><?php echo $this->__('Information by store'); ?></h2>
+                <div class="grid">
+                    <?php
+                    foreach (Mage::app()->getWebsites() as $website) {
+                        foreach ($website->getGroups() as $group) {
+                            $stores = $group->getStores();
+                            foreach ($stores as $store) {
+                                echo '<table class="data">';
+                                echo '<tr><td colspan="2" class="lengow-debug-store">' . $this->__('Store') . ' : ' . $store->getName() . ' (' . $store->getId() . ')</td></tr>';
+                                echo '<tr>';
+                                echo '<td>' . $this->__('Export enabled') . '</td>';
+                                if (Mage::getStoreConfig('lenexport/global/active_store', $store)) {
+                                    echo '<td class="lengow-debug-green">' . $this->__('Yes') . '</td>';
+                                } else {
+                                    echo '<td class="lengow-debug-red">' . $this->__('No') . '</td>';
+                                }
+                                echo '</tr>';
+                                echo '<tr>';
+                                echo '<td>' . $this->__('Import enabled') . '</td>';
+                                if (Mage::getStoreConfig('lensync/orders/active_store', $store)) {
+                                    echo '<td class="lengow-debug-green">' . $this->__('Yes') . '</td>';
+                                } else {
+                                    echo '<td class="lengow-debug-red">' . $this->__('No') . '</td>';
+                                }
+                                echo '</tr>';
+                                echo '<tr>';
+                                echo '<td>' . $this->__('Group ID') . '</td>';
+                                echo '<td>' . Mage::getStoreConfig('lentracker/general/group', $store) . '</td>';
+                                echo '</tr>';
+                                echo '<tr>';
+                                echo '<td>' . $this->__('Feed Url') . '</td>';
+                                $urlFeed = Mage::getUrl('lengow/feed', array('store' => $store->getId(), '_current' => false)) ;
+                                echo '<td><input type="text" class="lengow-feed-input" value="'.$urlFeed.'" READONLY>
+                                - <a href="'.$urlFeed.'">'.$this->__('View feed').'</a></td>';
+                                echo '</tr>';
+                                echo '</table><br/>';
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+            </td>
+             <td style="width:550px">
+                <h2><?php echo $this->__('Content folder media'); ?></h2>
+                <div class="grid">
+                   <?php
+                    foreach (Mage::app()->getWebsites() as $website) {
+                        foreach ($website->getGroups() as $group) {
+                            $stores = $group->getStores();
+                            foreach ($stores as $store) {
+                                $folder_path = Mage::getBaseDir('media') . DS . 'lengow' . DS . $store->getCode() . DS;
+                                $folder_url =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'lengow' . DS . $store->getCode() . DS;
+                                $files = array_diff(scandir($folder_path), array('..', '.'));
+                                echo '<table class="data">';
+                                echo '<tr><td colspan="3" class="lengow-debug-store">' . $this->__('Store') . ' : ' . $store->getName() . ' (' . $store->getId() . ')</td></tr>';
+                                echo '<tr><td>' . $this->__('Path folder') . '</td><td colspan="2">' . $folder_path . '</td></tr>';
+                                echo '<tr><td colspan="3" class="a-center">' . $this->__('File list') . '</td></tr>';
+                                if (count($files) > 0) {
+                                    date_default_timezone_set(Mage::getStoreConfig('general/locale/timezone'));
+                                    foreach ($files as $file) {
+                                        echo '<tr><td>'.$file.'</td>';
+                                        echo '<td>'.date("F d Y H:i:s", filectime($folder_path.$file)).'</td>';
+                                        echo '<td><a href="' . $folder_url.$file . '" target="_blank">' . $this->__('View file') . '</a></td></tr>';
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="3" class="lengow-debug-red">' . $this->__('No file exported') . '</td></tr>';
+                                }
+                                echo '</table><br/>'; 
+                            }
+                        }
+                    }
+                    ?>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <h2><?php echo $this->__('Viewing cron jobs'); ?></h2>
+        <?php echo $this->getGridHtml() ?>
+    </div>
+</div>

@@ -19,7 +19,7 @@ class Lengow_Feed_Block_Adminhtml_Feed_Renderer_Url extends Mage_Adminhtml_Block
      */
     public function render(Varien_Object $row) {
         $url = $row->getData('url');
-        echo '<a class="popup-link" target="_blank" data-link="' . $url . '" href="' . $url . '">' . Mage::helper('feed')->__('View feed') . '</a>';
+        echo '<a class="popup-link" target="_blank" data-link="' . $url . '" href="' . $url . '">' . Mage::helper('lenfeed')->__('View feed') . '</a>';
     }
 
 }

@@ -15,15 +15,26 @@
     
     <adminhtml_lengow_order_index>
         <reference name="content">
-            <block type="sync/adminhtml_order" name="manageorders.order.grid.container"></block>
+            <block type="lensync/adminhtml_order" name="manageorders.order.grid.container"></block>
         </reference>
     </adminhtml_lengow_order_index>
     <adminhtml_lengow_log_index>
         <reference name="content">
-            <block type="sync/adminhtml_log" name="manageorders.log.grid.container"></block>
+            <block type="lensync/adminhtml_log" name="manageorders.log.grid.container"></block>
         </reference>
     </adminhtml_lengow_log_index>
     
+    <adminhtml_lengow_debug_index>
+        <reference name="head">
+            <action method="setTitle" translate="title">
+                <title>Debug</title>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="lensync/adminhtml_cron" name="cron.grid" template="lengow/debug/index.phtml"></block>
+        </reference>
+    </adminhtml_lengow_debug_index>
+
     <adminhtml_lengow_export_index>
         <reference name="head">
             <action method="setTitle" translate="title">
@@ -31,7 +42,7 @@
             </action>
         </reference>
         <reference name="content">
-            <block type="export/adminhtml_product" name="product.grid" template="lengow/export/product.phtml">
+            <block type="lenexport/adminhtml_product" name="product.grid" template="lengow/export/product.phtml">
                 <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
                     <action method="setUseConfirm">
                         <params>0</params>
@@ -54,7 +65,7 @@
             </action>
         </reference>
         <reference name="content">
-            <block type="feed/adminhtml_feed" name="feed.grid" template="lengow/feed/grid.phtml">
+            <block type="lenfeed/adminhtml_feed" name="feed.grid" template="lengow/feed/grid.phtml">
                 <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
                     <action method="setUseConfirm">
                         <params>0</params>
@@ -68,9 +79,8 @@
         <reference name="sales_order_tabs">
             <action method="addTab">
                 <name>TAB_NAME</name>
-                <block>sync/adminhtml_order_tab</block>
+                <block>lensync/adminhtml_order_tab</block>
             </action>
         </reference>
     </adminhtml_sales_order_view>
-
 </layout>

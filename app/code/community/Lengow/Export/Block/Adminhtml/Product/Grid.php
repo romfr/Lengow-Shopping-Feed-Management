@@ -41,7 +41,7 @@ class Lengow_Export_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Wi
                           'left');
 
         if ($store->getId()) {
-            //$collection->setStoreId($store->getId());
+            $collection->setStoreId($store->getId());
             $collection->addStoreFilter($store);
             $collection->joinAttribute('custom_name', 'catalog_product/name', 'entity_id', null, 'inner', $store->getId());
             $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner', $store->getId());
@@ -154,7 +154,7 @@ class Lengow_Export_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Wi
                          1 => Mage::helper('catalog')->__('Yes'));
         $this->addColumn('lengow_product',
             array(
-                'header'=> Mage::helper('export')->__('Publish on Lengow'),
+                'header'=> Mage::helper('lenexport')->__('Publish on Lengow'),
                 'width' => '70px',
                 'index' => 'lengow_product',
                 'type'  => 'options',
@@ -180,7 +180,7 @@ class Lengow_Export_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Wi
 		$options = array(0 => Mage::helper('catalog')->__('No'),
                          1 => Mage::helper('catalog')->__('Yes'));
         $this->getMassactionBlock()->addItem('publish', array(
-             'label'=> Mage::helper('export')->__('Change Lengow\'s publication'),
+             'label'=> Mage::helper('lenexport')->__('Change Lengow\'s publication'),
              'url'  => $this->getUrl('*/*/massPublish', array('_current'=>true)),
              'additional' => array(
                     'visibility' => array(

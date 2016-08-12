@@ -1,108 +1,156 @@
 <?xml version="1.0"?>
 <config>
 	<tabs>
-        <lengow translate="label" module="sync">
+        <lengow translate="label" module="lensync">
             <label>Lengow</label>
             <sort_order>210</sort_order>
         </lengow>
     </tabs>
 	<sections>
-		<sync translate="label" module="sync">
+		<lensync translate="label" module="lensync">
 			<label>Manage Orders</label>
 			<tab>lengow</tab>
 			<frontend_type>text</frontend_type>
 			<sort_order>110</sort_order>
 			<show_in_default>1</show_in_default>
-			<show_in_website>1</show_in_website>
+			<show_in_website>0</show_in_website>
 			<show_in_store>1</show_in_store>
 			<groups>
-				<orders translate="label" module="sync">
+				<orders translate="label" module="lensync">
 					<label>Manage Orders</label>
 					<show_in_default>1</show_in_default>
-					<show_in_website>1</show_in_website>
+					<show_in_website>0</show_in_website>
 					<show_in_store>1</show_in_store>
 					<sort_order>1</sort_order>
 					<fields>
+						<active_store>
+							<label>Enabled store</label>
+                            <frontend_type>select</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+							<comment>Enable store to import</comment>
+						</active_store>
 						<period>
-							<label>Import orders from x days</label>						
+							<label>Import orders from x days</label>
 							<sort_order>20</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>0</show_in_website>
-							<show_in_store>0</show_in_store>
-							<comment>Choose period for Sync order</comment>
+							<show_in_store>1</show_in_store>
+							<comment>Choose a number of days</comment>
 						</period>
-						<customer_group>
-							<label>Customer group</label>				
-                            <frontend_type>select</frontend_type>		
-							<sort_order>30</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>0</show_in_website>
-							<show_in_store>0</show_in_store>
-                            <source_model>sync/system_config_source_customer_group</source_model>
-						</customer_group>
 						<date_import>
-							<label>Use the real date of import's order</label>			
-                            <frontend_type>select</frontend_type>			
+							<label>Use the real date of import's order</label>
+                            <frontend_type>select</frontend_type>
 							<sort_order>40</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>0</show_in_website>
-							<show_in_store>0</show_in_store>
+							<show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
 							<comment>To change the date of import's order with the date of marketplace</comment>
 						</date_import>
-						<cron>
-							<label>Auto import</label>			
-                            <frontend_type>select</frontend_type>			
-							<sort_order>40</sort_order>
-							<show_in_default>1</show_in_default>
-							<show_in_website>0</show_in_website>
-							<show_in_store>0</show_in_store>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-							<comment>Enable import every 30 minutes</comment>
-						</cron>
-                        <title>
-                            <label>Import with product's title from Lengow</label>
-                            <comment>Import an order with the product's name from marketplace</comment>
+						<processing_fee>
+                            <label>Import processing fee from Marketplace</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </processing_fee>
+						<customer_group>
+							<label>Customer group</label>
+                            <frontend_type>select</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+                            <source_model>lensync/system_config_source_customer_group</source_model>
+						</customer_group>
+                        <title>
+                            <label>Import with product's title from Lengow</label>
+                            <comment>Import an order with the product's name from marketplace</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </title>
-                        <pending>
+                        <!--<pending>
                             <label>Import order in pending payment</label>
                             <comment>Import an order in pendinf payment (like check or money order)</comment>
                             <frontend_type>select</frontend_type>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </pending>
-                        <processing_fee>
-                            <label>Import processing fee from Marketplace</label>
-                            <comment>Import the processing fee</comment>
+                        </pending>-->
+						<split_name>
+							<label>Split name</label>
+							<comment>If one of the name fields is empty, the non-empty field will be split to fill the empty name field</comment>
+							<frontend_type>select</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+						</split_name>
+                        <default_shipping>
+                            <label>Choose default shipping</label>
+                            <comment>Default shipping method</comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_shipping_allmethods</source_model>
+                        </default_shipping>
+                    	<fake_email>
+							<label>Use fictitious emails</label>
+							<comment>Use fictitious emails for customer creation</comment>
+							<frontend_type>select</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>1</show_in_store>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+						</fake_email>
+					</fields>
+				</orders>
+				<performances translate="label comment">
+                    <label>Performances</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>2</sort_order>
+                    <fields>
+                    	<active_cron>
+							<label>Auto import</label>
+                            <frontend_type>select</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </processing_fee>
+							<comment>Enable import every 30 minutes</comment>
+						</active_cron>
 						<debug>
-							<label>Debug mode</label>				
-                            <frontend_type>select</frontend_type>		
-							<sort_order>60</sort_order>
+							<label>Debug mode</label>
+                            <frontend_type>select</frontend_type>
+							<sort_order>20</sort_order>
 							<show_in_default>1</show_in_default>
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
 							<comment>Only for preproduction's mode : no sync orders with Lengow, import orders every time</comment>
 						</debug>
-					</fields>
-				</orders>
-				<hidden translate="label" module="sync">
+                    </fields>
+                </performances>
+				<hidden translate="label" module="lensync">
 					<label>Hidden fields</label>
 					<show_in_default>0</show_in_default>
 					<show_in_website>0</show_in_website>
@@ -110,7 +158,7 @@
 					<sort_order>1</sort_order>
 					<fields>
 						<last_synchro>
-							<label>Date of marketplace.xml sync</label>						
+							<label>Date of marketplace.xml sync</label>
 							<sort_order>1</sort_order>
 							<show_in_default>0</show_in_default>
 							<show_in_website>0</show_in_website>
@@ -120,6 +168,6 @@
 					</fields>
 				</hidden>
 			</groups>
-		</sync>
+		</lensync>
 	</sections>
 </config>

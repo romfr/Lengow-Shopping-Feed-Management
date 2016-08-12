@@ -10,8 +10,8 @@
  */
 class Lengow_Sync_Model_Payment_Method_Lengow extends Mage_Payment_Model_Method_Abstract {
 
-    protected $_code  = 'lengow';
-    protected $_infoBlockType = 'sync/payment_info_purchaseorder';
+	protected $_code  = 'lengow';
+    protected $_infoBlockType = 'lensync/payment_info_purchaseorder';
 
     /**
      * Assign data to info model instance
@@ -27,14 +27,12 @@ class Lengow_Sync_Model_Payment_Method_Lengow extends Mage_Payment_Model_Method_
         return $this;
     }
 
-    /**
+	/**
      * Check whether payment method can be used
      * @param Mage_Sales_Model_Quote
      * @return bool
      */
     public function isAvailable($quote = null) {
-        if(Mage::getSingleton('checkout/session')->getIsFromlengow())
-        	return true;
-        return false;
-    }
+        return Mage::getSingleton('core/session')->getIsFromlengow();
+	}
 }

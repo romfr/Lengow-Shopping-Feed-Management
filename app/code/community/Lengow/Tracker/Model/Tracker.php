@@ -40,7 +40,7 @@ class Lengow_Tracker_Model_Tracker extends Varien_Object {
      * @return string
      */
     protected function _getIdentifier() {
-        $config = Mage::getModel('tracker/config');
+        $config = Mage::getModel('lentracker/config');
         return $config->get('tag/identifiant');
     }
 

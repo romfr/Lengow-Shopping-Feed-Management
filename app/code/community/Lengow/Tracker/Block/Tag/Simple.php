@@ -13,14 +13,14 @@ class Lengow_Tracker_Block_Tag_Simple extends Mage_Core_Block_Template {
     protected $_config_model;
     
     public function __construct() {
-        $this->_config_model = Mage::getSingleton('tracker/config');
+        $this->_config_model = Mage::getSingleton('lentracker/config');
         $this->setData('id_client', $this->_config_model->get('general/login'));
         $this->setData('id_group', $this->_config_model->get('general/group'));
     }
     
     protected function _prepareLayout() {
         parent::_prepareLayout();
-        $tracker_model = Mage::getSingleton('tracker/tracker');
+        $tracker_model = Mage::getSingleton('lentracker/tracker');
         if(Mage::app()->getRequest()->getActionName() == 'success') {
             $order_id = Mage::getSingleton('checkout/session')->getLastOrderId();
             $order = Mage::getModel('sales/order')->load($order_id);

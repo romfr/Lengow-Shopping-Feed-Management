@@ -24,11 +24,11 @@ class Lengow_Export_Block_Adminhtml_Product extends Mage_Adminhtml_Block_Widget_
      */
     protected function _prepareLayout() {
         $this->_addButton('export', array(
-            'label'   => Mage::helper('export')->__('See the export feed'),
-            'onclick' => 'popWin(\''.$this->getUrl('lengow/feed').'\', \'_blank\')',
+            'label'   => Mage::helper('lenexport')->__('See the export feed'),
+            'onclick' => 'popWin(\''.$this->getUrl('lengow/feed', array('_current'=>true)).'\', \'_blank\')',
             'class'   => 'add'
         ));
-        $this->setChild('grid', $this->getLayout()->createBlock('export/adminhtml_product_grid', 'product.grid'));
+        $this->setChild('grid', $this->getLayout()->createBlock('lenexport/adminhtml_product_grid', 'product.grid'));
         return parent::_prepareLayout();
     }
 

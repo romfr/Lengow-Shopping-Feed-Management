@@ -43,7 +43,7 @@ class Lengow_Tracker_Block_Adminhtml_System_Config_Check extends Mage_Adminhtml_
 	 * @see Mage_Adminhtml_Block_System_Config_Form_Field::_getElementHtml()
 	 */
 	public function render(Varien_Data_Form_Element_Abstract $element) {
-		$html = $this->getLayout()->createBlock('tracker/adminhtml_system_config_check_point', 'lengow_checkpoint')
+		$html = $this->getLayout()->createBlock('lentracker/adminhtml_system_config_check_point', 'lengow_checkpoint')
 								  ->toHtml();
 		$element->setHtmlContent($html);
 		$this->_element = $element;

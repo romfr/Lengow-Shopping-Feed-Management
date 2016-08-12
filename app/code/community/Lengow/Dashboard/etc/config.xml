@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Lengow_Dashboard>
-            <version>2.0.1.5</version>
+            <version>2.1.2</version>
         </Lengow_Dashboard>
     </modules>
     <admin>
@@ -10,7 +10,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <dashboard before="Mage_Adminhtml">Lengow_Dashboard_Adminhtml</dashboard>
+                        <lendashboard before="Mage_Adminhtml">Lengow_Dashboard_Adminhtml</lendashboard>
                     </modules>
                 </args>
             </adminhtml>
@@ -18,10 +18,10 @@
     </admin>
     <global>
         <models>
-            <dashboard>
+            <lendashboard>
                 <class>Lengow_Dashboard_Model</class>
                 <resourceModel>dashboard_mysql4</resourceModel>
-            </dashboard>       
+            </lendashboard>
             <dashboard_mysql4>
                 <class>Lengow_Dashboard_Model_Mysql4</class>
                 <entities>
@@ -32,21 +32,21 @@
             </dashboard_mysql4>
         </models>
         <resources>
-            <dashboard_setup>
+            <lendashboard_setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </dashboard_setup>
-            <dashboard_write>
+            </lendashboard_setup>
+            <lendashboard_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </dashboard_write>
-            <dashboard_read>
+            </lendashboard_write>
+            <lendashboard_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </dashboard_read>
+            </lendashboard_read>
         </resources>
         <blocks>
             <adminhtml>
@@ -54,14 +54,14 @@
                     <dashboard_diagrams>Lengow_Dashboard_Block_Adminhtml_Dashboard_Diagrams</dashboard_diagrams>
                 </rewrite>
             </adminhtml>
-            <dashboard>
+            <lendashboard>
                 <class>Lengow_Dashboard_Block</class>
-            </dashboard>
+            </lendashboard>
         </blocks>
         <helpers>
-            <dashboard>
+            <lendashboard>
                 <class>Lengow_Dashboard_Helper</class>
-            </dashboard>
+            </lendashboard>
         </helpers>
     </global>
     <adminhtml>

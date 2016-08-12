@@ -13,11 +13,11 @@ class Lengow_Sync_Block_Adminhtml_Log extends Mage_Adminhtml_Block_Widget_Grid_C
 	public function __construct() {
 	  	parent::__construct();	     
 	    $this->_controller = 'adminhtml_log';
-	    $this->_blockGroup = 'sync';
+	    $this->_blockGroup = 'lensync';
 	    $this->_headerText = $this->__('Lengow logs');	
 		$this->_removeButton('add');
 		$this->_addButton('deleteAll', array(
-											'label'   => Mage::helper('sync')->__('Flush logs'),
+											'label'   => Mage::helper('lensync')->__('Flush logs'),
            									'onclick' => 'setLocation(\'' . $this->getUrl('*/*/delete') . '\')',
 								            'class'   => 'delete'
 											));

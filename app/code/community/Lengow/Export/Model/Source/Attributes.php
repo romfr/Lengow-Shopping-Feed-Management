@@ -11,7 +11,7 @@
 class Lengow_Export_Model_Source_Attributes {
 
     public function toOptionArray() {
-    	$attributes = Mage::getSingleton('export/convert_parser_product')->getExternalAttributes();
+    	$attributes = Mage::getSingleton('lenexport/convert_parser_product')->getExternalAttributes();
     	array_unshift($attributes, array('value' => 'none' ,
     		                             'label' => Mage::helper('adminhtml')->__('Select attribut to map')));
         return $attributes;        

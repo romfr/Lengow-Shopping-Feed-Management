@@ -2,44 +2,44 @@
 <config>
     <modules>
         <Lengow_Tracker>
-            <version>2.0.1.5</version>
+            <version>2.1.2</version>
         </Lengow_Tracker>
     </modules>
     <global>
         <models>
-            <tracker>
+            <lentracker>
                 <class>Lengow_Tracker_Model</class>
-            </tracker>  
+            </lentracker>
         </models>
         <blocks>
-            <tracker>
+            <lentracker>
                 <class>Lengow_Tracker_Block</class>
-            </tracker>
+            </lentracker>
         </blocks>
         <helpers>
-            <tracker>
+            <lentracker>
                 <class>Lengow_Tracker_Helper</class>
-            </tracker>
+            </lentracker>
         </helpers>
         <resources>
-            <tracker_setup>
+            <lentracker_setup>
                 <setup>
                     <module>Lengow_Tracker</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </tracker_setup>
-            <tracker_write>
+            </lentracker_setup>
+            <lentracker_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </tracker_write>
-            <tracker_read>
+            </lentracker_write>
+            <lentracker_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </tracker_read>
+            </lentracker_read>
         </resources>
     </global>
     <admin>
@@ -47,7 +47,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <tracker before="Mage_Adminhtml">Lengow_Tracker_Adminhtml</tracker>
+                        <lentracker before="Mage_Adminhtml">Lengow_Tracker_Adminhtml</lentracker>
                     </modules>
                 </args>
             </adminhtml>
@@ -56,9 +56,9 @@
     <frontend>
         <layout>
             <updates>
-                <tracker>
+                <lentracker>
                     <file>lengow.xml</file>
-                </tracker>
+                </lentracker>
             </updates>
         </layout>
     </frontend>
@@ -87,9 +87,9 @@
                             <children>
                                 <config>
                                     <children>
-                                        <tracker translate="title" module="tracker">
+                                        <lentracker translate="title" module="lentracker">
                                             <title>Products</title>
-                                        </tracker>
+                                        </lentracker>
                                     </children>
                                 </config>
                             </children>
@@ -100,10 +100,10 @@
         </acl>
     </adminhtml>
     <default>
-        <tracker>
+        <lentracker>
             <tag>
                 <identifiant>sku</identifiant>
             </tag>
-        </tracker>
+        </lentracker>
     </default>
 </config>

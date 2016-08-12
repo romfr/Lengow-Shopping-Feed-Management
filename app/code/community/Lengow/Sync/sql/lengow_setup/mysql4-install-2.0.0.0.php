@@ -153,18 +153,19 @@ $installer = new Mage_Catalog_Model_Resource_Eav_Mysql4_Setup('core_setup');
 
 $entity_id = $installer->getEntityTypeId('catalog_product');
 $attribute = $installer->getAttribute($entity_id,'lengow_product');
-if(!$attribute) {
+
+if(!$attribute){
     $installer->addAttribute('catalog_product', 'lengow_product', array(
         'type'              => 'int',
         'backend'           => '',
         'frontend'          => '',
         'label'             => 'Publish on Lengow',
         'input'             => 'boolean',
-        'global'            => 0,
+        'global'            => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
         'visible'           => 1,
         'required'          => 0,
         'user_defined'      => 1,
-        'default'           => 1,
+        'default'           => 0,
         'searchable'        => 0,
         'filterable'        => 0,
         'comparable'        => 0,
@@ -172,10 +173,11 @@ if(!$attribute) {
         'unique'            => 0,
         'used_in_product_listing' => 1
     ));
-} elseif (is_object($attribute)) {
-    // Update attribute
-    $attribute->setIsGlobal(0)->save();
+}else{
+    $installer->updateAttribute('catalog_product','lengow_product','default_value', 0);
+    $installer->updateAttribute('catalog_product','lengow_product','is_global', Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE);
 }
+
 // TODO use Mage ORM
 $installer->run(
             "CREATE TABLE IF NOT EXISTS `{$this->getTable('lengow_log')}` (

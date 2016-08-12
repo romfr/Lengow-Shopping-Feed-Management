@@ -17,7 +17,7 @@ class Lengow_Export_Model_Feed_Yaml extends Lengow_Export_Model_Feed_Abstract {
     }
 
     public function makeHeader() {   
-        return ''; 
+        return '"catalog":' . "\r\n"; 
     }
 
     public function makeData($array, $args = array()) {

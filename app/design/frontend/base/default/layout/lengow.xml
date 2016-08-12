@@ -2,7 +2,7 @@
 <layout version="0.1.0">
     <default>
         <reference name="before_body_end">
-            <block type="tracker/tracker" name="lengow_tracker" template="lengow/tracker/tag.phtml" />
+            <block type="lentracker/tracker" name="lengow_tracker" template="lengow/tracker/tag.phtml" />
         </reference>
     </default>
 

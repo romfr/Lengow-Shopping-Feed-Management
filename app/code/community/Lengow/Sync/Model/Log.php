@@ -10,8 +10,9 @@
  */
 class Lengow_Sync_Model_Log extends Mage_Core_Model_Abstract {
 
-	protected function _construct() {
-		$this->_init('sync/log');
+	protected function _construct()
+	{
+		$this->_init('lensync/log');
 	}
 	
 	/**
@@ -19,10 +20,11 @@ class Lengow_Sync_Model_Log extends Mage_Core_Model_Abstract {
 	 * @param $message string
 	 * @param $id_order int
 	 */
-	public function log($message, $id_order = null) {
+	public function log($message, $id_order = null)
+	{
 		$order_message = '';
 		if(!is_null($id_order)) {
-			$order_message = Mage::helper('sync')->__('ID Order') . ' Lengow #' . $id_order . ' ';
+			$order_message = Mage::helper('lensync')->__('ID Order') . ' Lengow #' . $id_order . ' ';
 		}	
 		$message = $order_message . $message;		
 		$this->setMessage($message);		

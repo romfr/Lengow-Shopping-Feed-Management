@@ -33,12 +33,12 @@ if (!function_exists('simplexml_load_string')) {
  * @copyright 2013 Lengow SAS
  */
 class Lengow_Sync_Model_Connector {
-    
+
     /**
      * Version.
      */
     const VERSION = '1.0.1';
-    
+
     /**
      * Error.
      */
@@ -128,7 +128,7 @@ class Lengow_Sync_Model_Connector {
         }
         return true;
     }
- 
+
     /**
      * The API method.
      *
@@ -148,7 +148,7 @@ class Lengow_Sync_Model_Connector {
         }
         return $data;
     }
- 
+
     /**
      * Call the Lengow service with accepted method.
      *
@@ -173,7 +173,7 @@ class Lengow_Sync_Model_Connector {
         $result = $this->_makeRequest($url);
         return $this->_format($result, self::$DOMAIN_LENGOW[$service]['format']);
     }
-    
+
     /**
       * Makes the Service API Url.
       *
@@ -216,7 +216,7 @@ class Lengow_Sync_Model_Connector {
              . (isset($array['state']) && !empty($array['state']) ? $array['state'] . '/' : '');
         return $url;
     }
- 
+
     /**
       * Makes the Statisctics API Url.
       *
@@ -232,7 +232,7 @@ class Lengow_Sync_Model_Connector {
              . $array['dateFrom'] . '/'
              . $array['dateTo'] . '/'
              . $this->id_customer .'/'
-             . $array['id'] 
+             . $array['id']
              . '/total-All/';
         return $url;
     }
@@ -268,7 +268,7 @@ class Lengow_Sync_Model_Connector {
         }
         return null;
     }
- 
+
     /**
       * Makes an HTTP request.
       *
@@ -277,7 +277,7 @@ class Lengow_Sync_Model_Connector {
       * @return string The response text
       */
     protected function _makeRequest($url) {
-        Mage::helper('sync/data')->log('Connector ' . $url);
+        Mage::helper('lensync/data')->log('Connector ' . $url);
         $ch = curl_init();
         // Options
         $opts = self::$CURL_OPTS;
@@ -286,7 +286,7 @@ class Lengow_Sync_Model_Connector {
         curl_setopt_array($ch, $opts);
         $result = curl_exec($ch);
         if ($result === false) {
-            Mage::helper('sync/data')->log('Connector Error (' . curl_error($ch) . ')' . $result);
+            Mage::helper('lensync/data')->log('Connector Error (' . curl_error($ch) . ')' . $result);
             throw new Lengow_Sync_Model_Connector_Exception(
                 array('message' => curl_error($ch),
                       'type' => 'CurlException',

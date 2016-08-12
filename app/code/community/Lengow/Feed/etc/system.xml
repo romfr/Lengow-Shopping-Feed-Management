@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config>
     <tabs>
-        <lengow translate="label" module="feed">
+        <lengow translate="label" module="lenfeed">
             <label>Lengow</label>
             <sort_order>210</sort_order>
         </lengow>
     </tabs>
     <sections>
-        <feed translate="label" module="feed">
+        <lenfeed translate="label" module="lenfeed">
             <label>Feed configuration</label>
             <tab>lengow</tab>
             <frontend_type>text</frontend_type>
@@ -35,6 +35,6 @@
                     </fields>
                 </general>
             </groups>
-        </feed>
+        </lenfeed>
     </sections>
 </config>

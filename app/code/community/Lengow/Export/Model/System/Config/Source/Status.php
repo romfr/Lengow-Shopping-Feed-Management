@@ -18,7 +18,7 @@ class Lengow_Export_Model_System_Config_Source_Status extends Mage_Core_Model_Co
             array('value' => Mage_Catalog_Model_Product_Status::STATUS_DISABLED, 
             	  'label' => Mage::helper('adminhtml')->__('Disabled')),
             array('value' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED . ',' . Mage_Catalog_Model_Product_Status::STATUS_DISABLED, 
-            	  'label' => Mage::helper('adminhtml')->__('Enable') . ', ' . Mage::helper('adminhtml')->__('Disabled')),
+            	  'label' => Mage::helper('adminhtml')->__('Enabled') . ', ' . Mage::helper('adminhtml')->__('Disabled')),
         );
     }
     
