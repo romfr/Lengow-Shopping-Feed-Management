@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <config>
     <tabs>
-        <lengow translate="label" module="tracker">
+        <lengow translate="label" module="lentracker">
             <label>Lengow</label>
             <sort_order>210</sort_order>
         </lengow>
     </tabs>
     <sections>
-        <tracker translate="label" module="tracker">
+        <lentracker translate="label" module="lentracker">
             <label>Customer Account</label>
             <tab>lengow</tab>
             <frontend_type>text</frontend_type>
@@ -26,7 +26,7 @@
                     <show_in_store>0</show_in_store>
                 </check>
                 <general translate="label, comment">
-                    <label>Lengow API and TagCapsule</label>
+                    <label>Lengow API</label>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -39,31 +39,32 @@
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </login>
                         <group>
                             <label>Group ID</label>
                             <comment>Your Group ID of Lengow</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>5</sort_order>
-                            <show_in_default>1</show_in_default>
+                            <show_in_default>0</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </group>
                         <api_key>
-                            <label>Token API</label>             
+                            <label>Token API</label>
+                            <comment>You can find credentials on your Lengow Dashboard</comment>             
                             <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <show_in_store>0</show_in_store>
                         </api_key>
                     </fields>
                 </general>
                 <tag translate="label, comment">
                     <label>TagCapsule</label>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
+                    <show_in_website>0</show_in_website>
                     <show_in_store>1</show_in_store>
                     <sort_order>2</sort_order>
                     <fields>
@@ -73,7 +74,7 @@
                             <source_model>Lengow_Tracker_Model_System_Config_Source_Tracker</source_model>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </type>
                         <identifiant>
@@ -82,7 +83,7 @@
                             <source_model>Lengow_Tracker_Model_System_Config_Source_Identifiant</source_model>
                             <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </identifiant>
                     </fields>
@@ -105,6 +106,6 @@
                     </fields>
                 </hidden>
             </groups>
-        </tracker>
+        </lentracker>
     </sections>
 </config>

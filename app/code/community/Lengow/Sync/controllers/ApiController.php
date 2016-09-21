@@ -15,8 +15,8 @@ class Lengow_Sync_ApiController extends Mage_Core_Controller_Front_Action {
     }
 
     public function checkAction() {
-        $_helper_export = Mage::helper('export/security');
-        $_helper_api = Mage::helper('sync/api');
+        $_helper_export = Mage::helper('lenexport/security');
+        $_helper_api = Mage::helper('lensync/api');
         if($_helper_export->checkIp()) {
             $return = array('magento_version' => Mage::getVersion(),
                             'lengow_version' => $_helper_api->getVersion());

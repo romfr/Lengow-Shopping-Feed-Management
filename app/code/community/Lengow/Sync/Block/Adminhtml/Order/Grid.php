@@ -98,17 +98,17 @@ class Lengow_Sync_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget
         ));        
         // Add datas from Lengow        
         $this->addColumn('order_id_lengow', array(
-            'header' => Mage::helper('sync')->__('Id lengow'),
+            'header' => Mage::helper('lensync')->__('Id lengow'),
             'index' => 'order_id_lengow',
         ));
         
         $this->addColumn('marketplace_lengow', array(
-            'header' => Mage::helper('sync')->__('Marketplace'),
+            'header' => Mage::helper('lensync')->__('Marketplace'),
             'index' => 'marketplace_lengow',
         ));
         
         $this->addColumn('fees_lengow', array(
-            'header'=> Mage::helper('sync')->__('Fees'),
+            'header'=> Mage::helper('lensync')->__('Fees'),
             'type'  => 'currency',
             'index' => 'fees_lengow',
         	'currency' => 'base_currency_code',

@@ -10,14 +10,14 @@
  */
 class Lengow_Export_Model_Feed_Xml extends Lengow_Export_Model_Feed_Abstract {
 
-    protected $_content_type = 'text/xml';
+    protected $_content_type = 'application/xml';
 
     public function getContentType() {
         return $this->_content_type;
     }
 
     public function makeHeader() {    
-        return '<?xml version="1.0" ?>' . "\r\n"
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n"
              . '<catalog>' . "\r\n";
     }
 

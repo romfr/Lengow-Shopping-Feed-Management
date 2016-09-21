@@ -5,7 +5,7 @@
  * @category    Lengow
  * @package     Lengow_Sync
  * @author      Ludovic Drin <ludovic@lengow.com>
- * @copyright   2013 Lengow SAS 
+ * @copyright   2013 Lengow SAS
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Lengow_Sync_Model_Shipping_Carrier_Lengow extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface {
@@ -30,11 +30,11 @@ class Lengow_Sync_Model_Shipping_Carrier_Lengow extends Mage_Shipping_Model_Carr
         $method->setMethod('lengow');
         $method->setMethodTitle($this->getConfigData('name'));
         $method->setPrice($this->getSession()->getShippingPrice());
-        $method->setCost($this->getSession()->getShippingPrice());  
-        $result->append($method);  
+        $method->setCost($this->getSession()->getShippingPrice());
+        $result->append($method);
         return $result;
     }
-    
+
     /**
     * Processing additional validation to check is carrier applicable.
     *
@@ -43,18 +43,16 @@ class Lengow_Sync_Model_Shipping_Carrier_Lengow extends Mage_Shipping_Model_Carr
     */
     public function proccessAdditionalValidation(Mage_Shipping_Model_Rate_Request $request) {
         if(Mage::getVersion() == '1.4.1.0')
-           return $this->isActive();         
+           return $this->isActive();
         return parent::proccessAdditionalValidation($request);
     }
-    
+
     public function getSession() {
         return Mage::getSingleton('checkout/session');
     }
-    
+
     public function isActive() {
-        if($this->getSession()->getIsFromlengow())
-            return true;        
-        return false;
+        return Mage::getSingleton('core/session')->getIsFromlengow();
     }
 
     public function getAllowedMethods() {

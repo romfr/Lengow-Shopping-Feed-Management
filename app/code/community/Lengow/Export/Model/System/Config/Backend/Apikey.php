@@ -11,12 +11,12 @@ class Lengow_Export_Model_System_Config_Backend_Apikey extends Mage_Core_Model_C
 	protected function _beforeSave() {
 		parent::_beforeSave();		
 		if((boolean)$this->getFieldsetDataValue('enabled') && $this->getValue() == '')
-			Mage::throwException(Mage::helper('sync')->__('API Key (Token) is empty'));		
+			Mage::throwException(Mage::helper('lensync')->__('API Key (Token) is empty'));		
 		if($this->isValueChanged()) {
 			/* @var $service Lengow_Export_Model_ManageOrders_Service */
 			$service = Mage::getSingleton('Lengow_Export/manageorders_service');			
 			if((boolean)$this->getFieldsetDataValue('enabled') && !$service->checkApiKey($this->getValue()))
-				Mage::throwException(Mage::helper('sync')->__('API key (Token) not valid'));
+				Mage::throwException(Mage::helper('lensync')->__('API key (Token) not valid'));
 			
 		}
 	}

@@ -4,20 +4,20 @@
  *
  * @category    Lengow
  * @package     Lengow_Sync
- * @author      Ludovic Drin <ludovic@lengow.com>
- * @copyright   2013 Lengow SAS 
+ * @author      Ludovic Drin <ludovic@lengow.com> & Benjamin Le Nevé <benjamin.le-neve@lengow.com>
+ * @copyright   2015 Lengow SAS
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Lengow_Sync_Model_Config extends Varien_Object {
-    
+
     /**
      * Config key "Debug mode"
      */
-    const DEBUG_MODE = 'orders/debug';
-    
+    const DEBUG_MODE = 'performances/debug';
+
     const MP_CONF_LENGOW = 'http://kml.lengow.com/mp.xml';
-    
-    protected $_id_store;
+
+    protected $store;
 
     protected $_file;
 
@@ -39,44 +39,65 @@ class Lengow_Sync_Model_Config extends Varien_Object {
                             'vat_id' => 'na',
                     );
 
-    public function setStore($id_store) {
-        $this->_id_store = $id_store;
+    /**
+     * Constructor
+     */
+    public function __construct($args = null)
+    {
+        parent::__construct();
+        if (isset($args['store']))
+            $this->setStore($args['store']);
+    }
+
+    /**
+     * Set store
+     *
+     * @param $store
+     * 
+     * @return Lengow_Sync_Model_Config 
+     */
+    public function setStore($store)
+    {
+        $this->store = $store;
         return $this;
     }
 
-    public function getConfig($key) {
-        return Mage::getStoreConfig($key, $this->_id_store);
+    /**
+     * Get store from config
+     *
+     * @return 
+     */
+    public function getStore()
+    {
+        return $this->store;
     }
 
-    public function get($key) {
-        return Mage::getStoreConfig('sync/' . $key, $this->_id_store);
+    /**
+     * Get data from config
+     *
+     * @param string $key
+     * 
+     * @return mixed
+     */
+    public function get($key)
+    {
+        if (is_null($this->store))
+            $id_store = null;
+        else
+            $id_store = $this->store->getId();
+        return Mage::getStoreConfig('lensync/' . $key, $id_store);
     }
 
     /**
      * Map Magento address attribute codes with Neteven ones
      *
-     * @param string $attributeCode
+     * @param string $attribute_code
+     * 
      * @return mixed
      */
-    public function getMappedAddressAttributeCode($attribute_code) {
+    public function getMappedAddressAttributeCode($attribute_code)
+    {
         return self::$ADDRESS_ATTRIBUTES[$attribute_code];
-    }
-
-    public function getOrderState($lengow) {
-        switch ($lengow) {
-            case 'new':
-                return Mage_Sales_Model_Order::STATE_NEW;
-                break;
-            case 'processing':
-                return Mage_Sales_Model_Order::STATE_PROCESSING;
-                break;
-            case 'shipped':
-                return Mage_Sales_Model_Order::STATE_COMPLETE;
-                break;
-            case 'canceled':
-                return Mage_Sales_Model_Order::STATE_CANCELED;
-                break;  
-        }
     }
 
     /**
@@ -84,8 +105,9 @@ class Lengow_Sync_Model_Config extends Varien_Object {
      *
      * @return boolean
      */
-    public function isDebugMode() {
-        return $this->get(self::DEBUG_MODE);
+    public function isDebugMode()
+    {
+        return $this->get(self::DEBUG_MODE)  == 1 ? true : false;
     }
 
     /**
@@ -93,13 +115,14 @@ class Lengow_Sync_Model_Config extends Varien_Object {
      *
      * @return boolean.
      */
-    public function updateMarketPlaceConfiguration() {
+    public function updateMarketPlaceConfiguration()
+    {
         if ($xml = fopen(self::MP_CONF_LENGOW, 'r')) {
-            $markeplace = Mage::getModel('sync/marketplace');
+            $markeplace = Mage::getModel('lensync/marketplace');
             $handle = fopen(Mage::getModuleDir('etc', 'Lengow_Sync') . DS . $markeplace::$XML_MARKETPLACES . '', 'w');
             stream_copy_to_stream($xml, $handle);
             fclose($handle);
-            Mage::getModel('core/config')->saveConfig('sync/hidden/last_synchro', date('Y-m-d'));
+            Mage::getModel('core/config')->saveConfig('lensync/hidden/last_synchro', date('Y-m-d'));
         }
     }
 
@@ -108,32 +131,67 @@ class Lengow_Sync_Model_Config extends Varien_Object {
      *
      * @return boolean.
      */
-    public function importCanStart() {
-        $timestamp = $this->readFlagFile();
-        if($timestamp !== false) {
-            $this->createFlagFile();
-            return true;
-        }
-        if((time() - (integer) $timestamp) < (60*25)) {
+    public function importCanStart()
+    {
+        if (is_null($this->_file))
+            $this->getFlagFile();
+        if (!$this->addFlagToFile()) {
+            $timestamp = $this->readFlagFile();
+            if ($timestamp !== false && (time() - (integer) $timestamp) > (60*25)) {
+                $this->addFlagToFile();
+                return true;
+            }
             return false;
-        } else {
-            $this->createFlagFile();
-            return true;
         }
+        return true;
+    }
+    
+    /**
+     * Finish import
+     *
+     */
+    public function importSetEnd()
+    {
+        $this->getFlagFile();
+        $this->_file->streamUnlock();
+        $this->addFlagToFile(true);
+        $this->_file->streamClose();
     }
 
     /**
-     * Create file flag.
+     * Add flag to file
      *
-     * @return boolean.
+     * @param boolean $reset
+     *
+     * @return boolean
      */
-    public  function readFlagFile() {
+    public function addFlagToFile($reset = false)
+    {
+
+        if ($this->_file->streamLock()) {
+            if ($reset) {
+                if ($this->_file->streamErase())
+                    $this->_file->streamWrite('0');
+            }
+            else {
+                $this->_file->streamWrite(time());
+            }
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
+     * Read file flag
+     *
+     * @return boolean
+     */
+    public  function readFlagFile()
+    {
         $file_path = Mage::getBaseDir('media') . DS . 'lengow' . DS;
         if(is_file($file_path . 'import.flag')) {
-            $this->_file = Mage::getModel('sync/file');
-            $this->_file->checkAndCreateFolder($file_path);
             $this->_file->cd($file_path);
-            $this->_file->streamOpen('import.flag', 'r+');
             $this->_file->streamLock();
             return $this->_file->streamRead(4096);
         } else {
@@ -142,35 +200,17 @@ class Lengow_Sync_Model_Config extends Varien_Object {
     }
 
     /**
-     * Create file flag.
+     * Create file flag
      *
-     * @return boolean.
+     * @return boolean
      */
-    public  function createFlagFile($clean = false) {
-        if($clean)
-            $_time = 0;
-        else
-            $_time = time();
+    public  function getFlagFile()
+    {
+        $this->_file = new Lengow_Sync_Model_File();
         $file_path = Mage::getBaseDir('media') . DS . 'lengow' . DS;
-        $this->_file->streamUnlock();
-        $this->_file->streamClose();
+        $this->_file->checkAndCreateFolder($file_path);
+        $this->_file->cd($file_path);
         $this->_file->streamOpen('import.flag', 'w+');
-        $this->_file->streamLock();
-        $this->_file->streamWrite($_time);
-        Mage::helper('sync/data')->log('Write on file log : ' . $_time);
+        Mage::helper('lensync/data')->log('Write on file log');
     }
-
-    /**
-     * Clean file flag.
-     *
-     * @return boolean.
-     */
-    public  function cleanFlagFile() {
-        $file_path = Mage::getBaseDir('media') . DS . 'lengow' . DS;
-        if(is_file($file_path . 'import.flag'))
-            $this->createFlagFile(true);
-            $this->_file->streamUnlock();
-            $this->_file->streamClose();
-    }
-    
 }

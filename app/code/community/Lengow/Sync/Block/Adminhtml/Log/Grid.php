@@ -20,26 +20,26 @@ class Lengow_Sync_Block_Adminhtml_Log_Grid extends Mage_Adminhtml_Block_Widget_G
     }
 
     protected function _prepareCollection() {
-        $collection = Mage::getModel('sync/log')->getCollection();        
+        $collection = Mage::getModel('lensync/log')->getCollection();        
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
     protected function _prepareColumns() {
         $this->addColumn('id', array(
-            'header'=> Mage::helper('sync')->__('ID'),
+            'header'=> Mage::helper('lensync')->__('ID'),
             'width' => '80px',
             'type'  => 'text',
             'index' => 'id',
         ));
         $this->addColumn('date', array(
-            'header' => Mage::helper('sync')->__('Created at'),
+            'header' => Mage::helper('lensync')->__('Created at'),
             'index' => 'date',
             'type' => 'datetime',
             'width' => '100px',
         ));
         $this->addColumn('message', array(
-            'header' => Mage::helper('sync')->__('Message'),
+            'header' => Mage::helper('lensync')->__('Message'),
             'index' => 'message',
         ));
         return parent::_prepareColumns();

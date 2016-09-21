@@ -52,8 +52,8 @@ class Lengow_Sync_Model_Marketplace {
       *
       * @param string $name The name of the marketplace
       */
-    public function set($name) {  
-        $this->_helper = Mage::helper('sync/data');
+    public function set($name) {
+        $this->_helper = Mage::helper('lensync/data');
         $this->_loadXml();
         $this->name = strtolower($name);
         $object = self::$DOM->xpath('/marketplaces/marketplace[@name=\'' . $this->name . '\']');
@@ -104,7 +104,7 @@ class Lengow_Sync_Model_Marketplace {
     }
 
     /**
-      * Get the real lengow's state 
+      * Get the real lengow's state
       *
       * @param string $name The marketplace state
       *
@@ -115,7 +115,7 @@ class Lengow_Sync_Model_Marketplace {
     }
 
     /**
-      * Get the marketplace's state 
+      * Get the marketplace's state
       *
       * @param string $name The lengow state
       *
@@ -126,7 +126,7 @@ class Lengow_Sync_Model_Marketplace {
     }
 
     /**
-      * Get the real lengow's payment 
+      * Get the real lengow's payment
       *
       * @param string $name The payment state
       *
@@ -137,7 +137,7 @@ class Lengow_Sync_Model_Marketplace {
     }
 
     /**
-      * Get the marketplace's payment 
+      * Get the marketplace's payment
       *
       * @param string $name The lengow payment
       *
@@ -170,7 +170,7 @@ class Lengow_Sync_Model_Marketplace {
     }
 
     /**
-      * Call the Lengow WSDL for current marketplace 
+      * Call the Lengow WSDL for current marketplace
       *
       * @param string $action The name of the action
       * @param string $id_feed The flux ID
@@ -245,7 +245,7 @@ class Lengow_Sync_Model_Marketplace {
                     }
                     $call_url .= '?' . implode('&', $url);
                 }
-                break; 
+                break;
             case 'refuse' :
                 $call_url = $this->api_url;
                 $call_url = str_replace('#ID_FLUX#', $id_feed, $call_url);
@@ -264,7 +264,7 @@ class Lengow_Sync_Model_Marketplace {
                     if(count($gets) > 0)
                         $call_url .= '?' . implode('&', $gets);
                 }
-                break; 
+                break;
             case 'link' :
                 $call_url = self::$WSDL_LINK_ORDER;
                 $call_url = str_replace('#MP#', $this->name, $call_url);
@@ -272,18 +272,17 @@ class Lengow_Sync_Model_Marketplace {
                 $call_url = str_replace('#ID_FLUX#', $id_feed, $call_url);
                 $call_url = str_replace('#ORDER_ID#', $order->getData('order_id_lengow'), $call_url);
                 $call_url = str_replace('#INTERNAL_ORDER_ID#', $order->getData('entity_id'), $call_url);
-
         }
         try {
             if($call_url) {
-                if(!Mage::getSingleton('sync/config')->isDebugMode()) {
+                if(!Mage::getSingleton('lensync/config')->isDebugMode()) {
                     $this->_makeRequest($call_url);
                 }
-                Mage::helper('sync')->log('Order ' . $order->getData('order_id_lengow') . ' : call Lengow WSDL ' . $call_url);
+                Mage::helper('lensync')->log('WSDL call Lengow : ' . $call_url, $order->getData('order_id_lengow'));
             }
         } catch(Lengow_Sync_Model_Marketplace_Exception $e) {
-            Mage::helper('sync')->log('Order ' . $order->getData('order_id_lengow') . ' : call error WSDL ' . $call_url);
-            Mage::helper('sync')->log('Order ' . $order->getData('order_id_lengow') . ' : exception ' . $e->getMessage());
+            Mage::helper('lensync')->log('call error WSDL ' . $call_url, $order->getData('order_id_lengow'));
+            Mage::helper('lensync')->log('exception ' . $e->getMessage(), $order->getData('order_id_lengow'));
         }
     }
 
@@ -306,11 +305,31 @@ class Lengow_Sync_Model_Marketplace {
                 return $value;
 
         }
+
         // Approximately match
         foreach($param['accepted_values'] as $value) {
             $value = (string) $value;
-            if(preg_match('`.*?(' . $name . ').*?`i', $name))
+            if(preg_match('`.*?' . $value . '.*?`i', $name))
+              return $value;
+
+        }
+
+        // search by title
+        if (strtoupper($title) == 'GLS S')
+            $title = 'GLS';
+        // Exact match
+        foreach($param['accepted_values'] as $value) {
+            $value = (string) $value;
+            if(preg_match('`' . $value . '`i', trim($title)))
                 return $value;
+
+        }
+
+        // Approximately match
+        foreach($param['accepted_values'] as $value) {
+            $value = (string) $value;
+            if(preg_match('`.*?' . $value . '.*?`i', $title))
+              return $value;
 
         }
         return $param['accepted_values_default'];
@@ -323,7 +342,7 @@ class Lengow_Sync_Model_Marketplace {
         if(!self::$DOM) {
             self::$DOM = simplexml_load_file(Mage::getModuleDir('etc', 'Lengow_Sync') . DS . self::$XML_MARKETPLACES);
         }
-    } 
+    }
 
     /**
       * Makes an HTTP request.
@@ -335,7 +354,7 @@ class Lengow_Sync_Model_Marketplace {
     protected function _makeRequest($url) {
         $ch = curl_init();
         // Options
-        $connector = Mage::getSingleton('sync/connector');
+        $connector = Mage::getSingleton('lensync/connector');
         $opts = $connector::$CURL_OPTS;
         $opts[CURLOPT_URL] = $url;
         // Exectute url request

@@ -28,10 +28,15 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
     static private $_ID_CATEGORY = '';
 
     public function __construct() {
-        $this->setData('config_model', Mage::getSingleton('tracker/config'));
-        $this->setData('capsule_model', Mage::getSingleton('tracker/capsule'));
+        $this->setData('config_model', Mage::getSingleton('lentracker/config'));
+        $this->setData('capsule_model', Mage::getSingleton('lentracker/capsule'));
         $this->setData('id_client', $this->getData('config_model')->get('general/login'));
-        $this->setData('id_group', $this->getData('config_model')->get('general/group'));
+
+        // explode group id => force 1 group only
+        $id_groups = $this->getData('config_model')->get('general/group');
+        $id_groups = explode(',', $id_groups);
+        $this->setData('id_group', $id_groups[0]);
+
         $this->setData('current_view', Mage::app()->getRequest()->getActionName());
     }
 
@@ -42,7 +47,7 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
         $current_module = Mage::app()->getFrontController()->getRequest()->getModuleName();
         $current_controller = Mage::app()->getFrontController()->getRequest()->getControllerName();
         $current_action = '';
-        
+
         if(Mage::getBlockSingleton('page/html_header')->getIsHomePage()) {
             self::$_CURRENT_PAGE_TYPE = self::LENGOW_TRACK_HOMEPAGE;
         } else if ($current_module == 'catalog') {
@@ -51,9 +56,9 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
             else if ($current_controller == 'product')
                 self::$_CURRENT_PAGE_TYPE = self::LENGOW_TRACK_PAGE;
         } else if ($current_module == 'checkout') {
-            
+
             $current_action = Mage::app()->getRequest()->getActionName();
-            
+
             if ($current_action == 'success')
                 self::$_CURRENT_PAGE_TYPE = self::LENGOW_TRACK_PAGE_CONFIRMATION;
             else if ($current_controller == 'cart')
@@ -61,7 +66,7 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
             else if ($current_controller == 'onepage')
                 self::$_CURRENT_PAGE_TYPE = self::LENGOW_TRACK_PAGE;
        }
-        
+
         // Order total
         if (self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE_CART ||
                 self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE_PAYMENT ||
@@ -88,7 +93,7 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
             self::$_IDS_PRODUCTS = $this->getData('capsule_model')->getIdsProducts($quote);
         } else if(self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE_LIST) {
             self::$_IDS_PRODUCTS =  $this->_getCurrentProductsIds();
-        } else if(self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE) {            
+        } else if(self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE) {
             self::$_IDS_PRODUCTS =  $this->_getCurrentProductId();
         } else if (self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE_CONFIRMATION) {
             // Get last order
@@ -113,7 +118,7 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
             self::$_ID_CATEGORY = Mage::registry('current_category')->getName();
 
         // Use SSL
-        if (isset($_SERVER['HTTPS']) && $_SERVER['https'] == 'on')
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
             self::$_USE_SSL = true;
 
         // Assign data
@@ -133,14 +138,14 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
     }
 
     protected function _getCurrentProductId() {
-        $config = Mage::getModel('tracker/config');
+        $config = Mage::getModel('lentracker/config');
         if($product = Mage::registry('product'))
             return $product->getData($config->get('tag/identifiant'));
         return '';
     }
 
     protected function _getCurrentProductsIds($implode = true) {
-        $config = Mage::getModel('tracker/config');
+        $config = Mage::getModel('lentracker/config');
         $ids = array();
         $products = $this->_getProductCollection()->getData();
         if($products) {
@@ -199,9 +204,9 @@ class Lengow_Tracker_Block_Tag_Capsule extends Mage_Core_Block_Template {
 
     protected function _beforeToHtml() {
         if(self::$_CURRENT_PAGE_TYPE == self::LENGOW_TRACK_PAGE_LIST) {
-            $config = Mage::getModel('tracker/config');
+            $config = Mage::getModel('lentracker/config');
             $_list = $this->getLayout()->getBlock('product_list');
-            $_products = $_list->getLoadedProductCollection(); 
+            $_products = $_list->getLoadedProductCollection();
             if($_products) {
                 foreach ($_products as $product) {
                     $ids[] = $product[$config->get('tag/identifiant')];

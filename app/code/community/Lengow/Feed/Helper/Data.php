@@ -16,7 +16,7 @@ class Lengow_Feed_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return array File format
      */
     public function getArrayFormat() {
-        $format_array = Mage::getModel('export/system_config_source_format')->toOptionArray();
+        $format_array = Mage::getModel('lenexport/system_config_source_format')->toOptionArray();
         $formats = array();
         foreach($format_array as $format) {
             $formats[] = $format['value'];
@@ -30,7 +30,7 @@ class Lengow_Feed_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return array Product type
      */
     public function getProductTypeFormat() {
-        $product_type_array = Mage::getModel('export/system_config_source_types')->toOptionArray();
+        $product_type_array = Mage::getModel('lenexport/system_config_source_types')->toOptionArray();
         $types = array();
         foreach($product_type_array as $type) {
             $types[] = $type['value'];
@@ -43,7 +43,7 @@ class Lengow_Feed_Helper_Data extends Mage_Core_Helper_Abstract {
      * @return mixed Lengow connector object
      */
     public function getConnector($id_client, $api_key) {
-        $connector = Mage::getSingleton('sync/connector');
+        $connector = Mage::getSingleton('lensync/connector');
         $connector->init((integer) $id_client, $api_key);
         return $connector;
     }

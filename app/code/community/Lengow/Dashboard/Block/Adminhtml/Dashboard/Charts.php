@@ -14,7 +14,7 @@ class Lengow_Dashboard_Block_Adminhtml_Dashboard_Charts extends Mage_Core_Block_
     public function __construct() {
         parent::__construct();
         
-        $this->setData('config_model', Mage::getSingleton('dashboard/config'));
+        $this->setData('config_model', Mage::getSingleton('lendashboard/config'));
         $this->setData('id_client', $this->getData('config_model')->get('general/login'));
         $this->setData('id_group', $this->getData('config_model')->get('general/group'));
         $this->setData('api_key', $this->getData('config_model')->get('general/api_key'));

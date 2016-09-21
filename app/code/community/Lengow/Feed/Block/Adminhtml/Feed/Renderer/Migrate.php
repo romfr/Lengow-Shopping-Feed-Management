@@ -20,7 +20,7 @@ class Lengow_Feed_Block_Adminhtml_Feed_Renderer_Migrate extends Mage_Adminhtml_B
     public function render(Varien_Object $row) {
         return sprintf('<button type="submit" class="scalable save" name="submit" value="%s">%s</button>', 
                 $row->getData('id'),
-                Mage::helper('feed')->__('Migrate Feed'));
+                Mage::helper('lenfeed')->__('Migrate Feed'));
     }
 
 }

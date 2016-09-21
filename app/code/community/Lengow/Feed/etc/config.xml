@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Lengow_Feed>
-            <version>2.0.1.5</version>
+            <version>2.1.2</version>
         </Lengow_Feed>
     </modules>
     <admin>
@@ -10,7 +10,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <feed before="Mage_Adminhtml">Lengow_Feed_Adminhtml</feed>
+                        <lenfeed before="Mage_Adminhtml">Lengow_Feed_Adminhtml</lenfeed>
                     </modules>
                 </args>
             </adminhtml>
@@ -18,10 +18,10 @@
     </admin>
     <global>
         <models>
-            <feed>
+            <lenfeed>
                 <class>Lengow_Feed_Model</class>
                 <resourceModel>feed_mysql4</resourceModel>
-            </feed>       
+            </lenfeed>
             <feed_mysql4>
                 <class>Lengow_Feed_Model_Mysql4</class>
                 <entities>
@@ -32,31 +32,31 @@
             </feed_mysql4>
         </models>
         <resources>
-            <feed_setup>
+            <lenfeed_setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </feed_setup>
-            <feed_write>
+            </lenfeed_setup>
+            <lenfeed_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </feed_write>
-            <feed_read>
+            </lenfeed_write>
+            <lenfeed_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </feed_read>
+            </lenfeed_read>
         </resources>
         <blocks>
-            <feed>
+            <lenfeed>
                 <class>Lengow_Feed_Block</class>
-            </feed>
+            </lenfeed>
         </blocks>
         <helpers>
-            <feed>
+            <lenfeed>
                 <class>Lengow_Feed_Helper</class>
-            </feed>
+            </lenfeed>
         </helpers>
     </global>
     <adminhtml>
@@ -74,7 +74,7 @@
                 <title>Lengow</title>
                 <sort_order>20</sort_order>
                 <children>
-                    <feed translate="title" module="feed">
+                    <feed translate="title" module="lenfeed">
                         <title>Manage Feeds</title>
                         <action>adminhtml/lengow_feed</action>
                         <sort_order>300</sort_order>
@@ -90,16 +90,16 @@
                             <children>
                                 <config>
                                     <children>
-                                        <feed translate="title" module="feed">
+                                        <lenfeed translate="title" module="lenfeed">
                                             <title>Products</title>
-                                        </feed>
+                                        </lenfeed>
                                     </children>
                                 </config>
                             </children>
                         </system>
-                        <lengow translate="title" module="feed">
+                        <lengow translate="title" module="lenfeed">
                             <children>
-                                <feed translate="title" module="feed">
+                                <feed translate="title" module="lenfeed">
                                     <title>Manage Feeds</title>
                                 </feed>
                             </children>

@@ -2,18 +2,18 @@
 <config>
     <modules>
         <Lengow_Sync>
-            <version>2.0.1.5</version>
+            <version>2.1.2</version>
         </Lengow_Sync>
     </modules>
     <admin>
         <routers>
-            <sync>
+            <lensync> <!-- module name -->
                 <use>admin</use>
                 <args>
                     <module>Lengow_Sync</module>
-                    <frontName>lengow</frontName>
+                    <frontName>lengow</frontName> <!-- URL call of controller -->
                 </args>
-            </sync>
+            </lensync>
             <adminhtml>
                 <args>
                     <modules>
@@ -25,10 +25,10 @@
     </admin>
     <global>
         <models>
-            <sync>
+            <lensync>
                 <class>Lengow_Sync_Model</class>
                 <resourceModel>sync_mysql4</resourceModel>
-            </sync>     
+            </lensync>
             <sync_mysql4>
                 <class>Lengow_Sync_Model_Mysql4</class>
                 <entities>
@@ -48,26 +48,26 @@
                     <use>core_setup</use>
                 </connection>
             </lengow_setup>
-            <sync_write>
+            <lensync_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </sync_write>
-            <sync_read>
+            </lensync_write>
+            <lensync_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </sync_read>
+            </lensync_read>
         </resources>
         <blocks>
-            <sync>
+            <lensync>
                 <class>Lengow_Sync_Block</class>
-            </sync>
+            </lensync>
         </blocks>
         <helpers>
-            <sync>
+            <lensync>
                 <class>Lengow_Sync_Helper</class>
-            </sync>
+            </lensync>
         </helpers>
         <events>
             <sales_order_shipment_save_after>
@@ -78,6 +78,14 @@
                     </lengow_shipment_save_after>
                 </observers>
             </sales_order_shipment_save_after>
+            <!-- <sales_order_shipment_track_save_after>
+                <observers>
+                    <lengow_shipment_track_save_after>
+                        <class>Lengow_Sync_Model_Observer</class>
+                        <method>salesOrderShipmentTrackSaveAfter</method>
+                    </lengow_shipment_track_save_after>
+                </observers>
+            </sales_order_shipment_track_save_after> -->
             <sales_order_payment_cancel>
                 <observers>
                     <lengow_payment_cancel>
@@ -175,12 +183,12 @@
                 <title>Lengow</title>
                 <sort_order>20</sort_order>
                 <children>
-                    <sync translate="title" module="sync">
+                    <sync translate="title" module="lensync">
                         <title>Manage Orders</title>
                         <action>adminhtml/lengow_order</action>
                         <sort_order>200</sort_order>
                     </sync>
-                    <log translate="title" module="sync">
+                    <log translate="title" module="lensync">
                         <title>Logs</title>
                         <action>adminhtml/lengow_log</action>
                         <sort_order>400</sort_order>
@@ -196,20 +204,20 @@
                             <children>
                                 <config>
                                     <children>
-                                        <sync translate="title" module="sync">
+                                        <lensync translate="title" module="lensync">
                                             <title>Manage orders</title>
-                                        </sync>
+                                        </lensync>
                                     </children>
                                 </config>
                             </children>
                         </system>
-                        <lengow translate="title" module="sync">
+                        <lengow translate="title" module="lensync">
                             <title>Lengow</title>
                             <children>
-                                <sync translate="title" module="sync">
+                                <sync translate="title" module="lensync">
                                     <title>Manage Orders</title>
                                 </sync>
-                                <log translate="title" module="sync">
+                                <log translate="title" module="lensync">
                                     <title>Manage Logs</title>
                                 </log>
                             </children>
@@ -226,27 +234,37 @@
                     <cron_expr>*/30 * * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>sync/observer::import</model>
+                    <model>lensync/observer::import</model>
                 </run>
             </sync_orders_lengow>
         </jobs>
     </crontab>
     <default>
-        <sync>
+        <lensync>
             <orders>
+                <active_store>0</active_store>
                 <period>3</period>
-                <customer_group>0</customer_group>
-                <pending>0</pending>
+                <date_import>0</date_import>
                 <processing_fee>1</processing_fee>
+                <customer_group>0</customer_group>
+                <title>0</title>
+                <!-- <pending>0</pending> -->
+                <split_name>0</split_name>
+                <default_shipping>lengow_lengow</default_shipping>
+                <fake_email>0</fake_email>
             </orders>
+            <performances>
+                <active_cron>0</active_cron>
+                <debug>0</debug>
+            </performances>
             <hidden>
                 <last_synchro>0000-00-00</last_synchro>
             </hidden>
-        </sync>
+        </lensync>
         <payment>
             <lengow>
                 <active>1</active>
-                <model>sync/payment_method_lengow</model>
+                <model>lensync/payment_method_lengow</model>
                 <order_status>pending</order_status>
                 <title>Lengow Payment</title>
                 <allowspecific>0</allowspecific>
@@ -254,7 +272,7 @@
             </lengow>
             <lengow_purchaseorder>
                 <active>1</active>
-                <model>sync/payment_method_lengow</model>
+                <model>lensync/payment_method_lengow</model>
                 <order_status>new</order_status>
                 <title>Lengow Payment (version 1.x)</title>
                 <allowspecific>0</allowspecific>
@@ -262,10 +280,10 @@
             </lengow_purchaseorder>
         </payment>
         <carriers>
-            <lengow translate="name title" module="sync">
+            <lengow translate="name title" module="lensync">
                 <active>1</active>
                 <sallowspecific>0</sallowspecific>
-                <model>sync/shipping_carrier_lengow</model>
+                <model>lensync/shipping_carrier_lengow</model>
                 <name>Shipping from marketplace</name>
                 <title>Lengow</title>
             </lengow>

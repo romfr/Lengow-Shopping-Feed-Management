@@ -15,7 +15,10 @@ class Lengow_Export_Model_System_Config_Source_Getattributes extends Mage_Core_M
                            ->setEntityTypeFilter(Mage::getModel('catalog/product')
                            ->getResource()
                            ->getTypeId());
-        $attributeArray = array();        
+        $attributeArray = array();
+        $attributeArray[] = array('value' => 'none',
+                                  'label' => '',
+                          );        
         foreach ($attribute as $option) {
             $attributeArray[] = array(
                 'value' => $option->getAttributeCode(),

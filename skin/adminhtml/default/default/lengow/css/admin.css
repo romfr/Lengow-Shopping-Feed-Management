@@ -87,3 +87,70 @@
 	background-color: #d2322d;
 	border-color: #ac2925;
 }
+
+/* DEBUG PAGE */
+.lengow-feed-input {
+	width:400px;
+}
+
+.lengow-debug-green {
+	background: #449908;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+}
+.lengow-debug-red {
+	background: #9E0C00;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+}
+.lengow-debug-orange {
+	background: #F37A00;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+}
+
+.lengow-debug-store {
+	background: #9E9E9E;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+}
+
+/* CRON STATUS */
+.lengow-status {
+    background: green;
+    padding: 2px 0;
+    border-radius: 7px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+.lengow-status.green {
+    background: green;
+    color: white;
+}
+
+.lengow-status.grey {
+    background: grey;
+    color: white;
+}
+
+.lengow-status.red {
+    background: red;
+    color: white;
+}
+
+.lengow-status.blue {
+    background: blue;
+    color: white;
+}
+
+.lengow-status.orange {
+    background: orange;
+    color: white;
+}

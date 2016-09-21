@@ -25,15 +25,15 @@
  */
 
 class Lengow_Tracker_Block_Adminhtml_System_Config_Check_Point extends Mage_Adminhtml_Block_Template {
-	    
+
 	protected $_element;
 
 	protected $_helper;
 
     public function __construct() {
     	$this->setTemplate('lengow/check/point.phtml');
-    	$this->_helper = Mage::helper('tracker/check');
-    	parent::_construct();    
+    	$this->_helper = Mage::helper('lentracker/check');
+    	parent::_construct();
     }
 
     public function getVersion() {

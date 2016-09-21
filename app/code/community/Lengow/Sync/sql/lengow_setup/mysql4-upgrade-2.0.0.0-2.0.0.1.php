@@ -12,7 +12,8 @@ $installer->startSetup();
 
 /*
  * Add order infos
- *  - carrier - string
+ *  - Carrier - text
+ *  - Carrier method - text
  */
 $order_entity_id = $installer->getEntityTypeId('order');
 

@@ -1,90 +1,91 @@
 <?xml version="1.0"?>
 <config>
     <tabs>
-        <lengow translate="label" module="export">
+        <lengow translate="label" module="lenexport">
             <label>Lengow</label>
             <sort_order>210</sort_order>
         </lengow>
     </tabs>
     <sections>
-        <export translate="label" module="export">
+        <lenexport translate="label" module="lenexport">
             <label>Export Configuration</label>
             <tab>lengow</tab>
             <frontend_type>text</frontend_type>
             <sort_order>90</sort_order>
             <show_in_default>1</show_in_default>
-            <show_in_website>1</show_in_website>
+            <show_in_website>0</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
                 <global translate="label comment">
                     <label>Global</label>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
+                    <show_in_website>0</show_in_website>
                     <show_in_store>1</show_in_store>
                     <sort_order>1</sort_order>
                     <fields>
-                        <valid_ip>
-                            <label>Ip authorised to export</label>
-                            <comment><![CDATA[Authorized acces to catalog export by IP, separated by ;]]></comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>6</sort_order>
+                        <active_store>
+                            <label>Enabled store</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </valid_ip>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Enable store to export</comment>
+                        </active_store>
                         <export_only_selected>
                             <label>Export only selected product</label>
                             <comment></comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>9</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </export_only_selected>
                         <autoexport_newproduct>
-                            <label><![CDATA[Auto export new product]]></label>
-                            <comment><![CDATA[Auto export a new product on Lengow]]></comment>
+                            <label>Auto export new product</label>
+                            <comment>Auto export a new product on Lengow</comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </autoexport_newproduct>  
+                        </autoexport_newproduct>
                         <export_soldout>
-                            <label>Export product out of stock</label>
-                            <comment></comment>                         
+                            <label>Export out of stock product</label>
+                            <comment></comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>60</sort_order>
+                            <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </export_soldout>
                         <producttype>
                             <label>Product type to export</label>
-                            <comment></comment>                         
+                            <comment></comment>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>70</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>export/system_config_source_types</source_model>
-                        </producttype>  
+                            <source_model>lenexport/system_config_source_types</source_model>
+                        </producttype>
                         <productstatus>
                             <label>Status of product to export</label>
-                            <comment></comment>                         
+                            <comment></comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>80</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>export/system_config_source_status</source_model>
+                            <source_model>lenexport/system_config_source_status</source_model>
                         </productstatus>
                         <!--<productchildren>
                             <label>Export child product</label>
-                            <comment>Export child for configurable product</comment>                         
+                            <comment>Export child for configurable product</comment>
                             <frontend_type>select</frontend_type>
                             <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
@@ -98,76 +99,93 @@
                     <label>Data</label>
                     <comment></comment>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
+                    <show_in_website>0</show_in_website>
                     <show_in_store>1</show_in_store>
                     <sort_order>2</sort_order>
                     <fields>
-                        <levelcategory>
-                            <label>Level max for category</label>
-                            <comment></comment>                         
+                        <format>
+                            <label>Export default format</label>
                             <frontend_type>select</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>export/system_config_source_category_level</source_model>
-                        </levelcategory>
+                            <source_model>lenexport/system_config_source_format</source_model>
+                        </format>
+                        <count_images>
+                            <label>Images max</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>lenexport/system_config_source_images</source_model>
+                        </count_images>
                         <parentsimages>
                             <label>Merge images with parents products if exist</label>
-                            <comment></comment>                         
+                            <comment></comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>10</sort_order>
+                            <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </parentsimages>
+                        <levelcategory>
+                            <label>Level max for category</label>
+                            <comment></comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>lenexport/system_config_source_category_level</source_model>
+                        </levelcategory>
+                        <without_product_ordering>
+                            <label>Stock without products ordering</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </without_product_ordering>
                         <formatdata>
                             <label>Convert data</label>
-                            <comment><![CDATA[Replace spcecial chars with html chars]]></comment>                          
+                            <comment>Replace special chars with html chars</comment>
                             <frontend_type>select</frontend_type>
-                            <sort_order>20</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </formatdata>
-                        <keephtml>
-                            <label>Keep html</label>
-                            <comment><![CDATA[Keep html chars in descrption]]></comment>                          
-                            <frontend_type>select</frontend_type>
-                            <sort_order>20</sort_order>
+                        <html_attributes>
+                            <label>Keep html for the selected fields</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>lenexport/system_config_source_getattributes</source_model>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </keephtml>
+                        </html_attributes>
                         <shipping_price_based_on>
                             <label>Country shipping</label>
                             <comment>Default country for shipping cost</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_country</source_model>
-                            <sort_order>30</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>            
-                        </shipping_price_based_on>  
-                        <default_shipping_delay>
-                            <label>Delay of shipping</label>
-                            <comment></comment>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>40</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </default_shipping_delay>
+                        </shipping_price_based_on>
                         <default_shipping_price>
                             <label>Shipping cost</label>
                             <comment>Default shipping cost if matching find</comment>
                             <frontend_type>text</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </default_shipping_price>
                         <default_shipping_method>
@@ -175,89 +193,90 @@
                             <comment>Default shipping method to calculate shipping cost</comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_shipping_allmethods</source_model>
-                            <sort_order>60</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>                        
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
                         </default_shipping_method>
-                        <format>
-                            <label>Format</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>10</sort_order>
+                        <default_shipping_delay>
+                            <label>Delay of shipping</label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <source_model>export/system_config_source_format</source_model>
-                        </format>
-                        <without_product_ordering>
-                            <label>Stock without products ordering</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>70</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </without_product_ordering>
-                        <count_images>
-                            <label>Images max</label>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>80</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <source_model>export/system_config_source_images</source_model>
-                        </count_images>
+                        </default_shipping_delay>
                     </fields>
                 </data>
-                <performances translate="label comment">
-                    <label>Performances</label>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                    <sort_order>3</sort_order>
-                    <fields>
-                        <usesavefile>
-                            <label>Save feed on file</label>
-                            <comment><![CDATA[Save the feed on a file]]></comment>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>40</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </usesavefile>
-                        <active_cron>
-                            <label><![CDATA[Active cron]]></label>
-                            <comment><![CDATA[Active the scheduled task for export your feed every 4h]]></comment>
-                            <frontend_type>select</frontend_type>
-                            <sort_order>60</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                        </active_cron>
-                    </fields>
-                </performances>
                 <!-- selection des attributs -->
                 <attributelist translate="label">
-                    <label>Products attributes</label>
+                    <label>Product attributes</label>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
+                    <show_in_website>0</show_in_website>
                     <show_in_store>1</show_in_store>
-                    <sort_order>20</sort_order>
+                    <sort_order>3</sort_order>
                     <fields>
                         <attributes translate="label">
                             <label>Select attributes to export</label>
                             <frontend_type>multiselect</frontend_type>
-                            <source_model>export/system_config_source_getattributes</source_model>
-                            <sort_order>4</sort_order>
+                            <source_model>lenexport/system_config_source_getattributes</source_model>
+                            <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
+                            <show_in_website>0</show_in_website>
                             <show_in_store>1</show_in_store>
                         </attributes>
                     </fields>
                 </attributelist>
+                <performances translate="label comment">
+                    <label>Performances</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>4</sort_order>
+                    <fields>
+                        <valid_ip>
+                            <label>Ip authorised to export</label>
+                            <comment>Authorized acces to catalog export by IP, separated by ;</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </valid_ip>
+                        <optimizeexport>
+                            <label>Optimize Export File</label>
+                            <comment>Beta feature: enable this option to get a faster export</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </optimizeexport>
+                        <usesavefile>
+                            <label>Save feed on file</label>
+                            <comment>Save the feed on a file</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </usesavefile>
+                        <active_cron>
+                            <label>Active cron</label>
+                            <comment>Active the scheduled task for export your feed every 4h</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </active_cron>
+                    </fields>
+                </performances>
             </groups>
-        </export>
+        </lenexport>
     </sections>
 </config>
